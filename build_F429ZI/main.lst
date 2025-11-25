@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s 			page 1
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -20,548 +20,1407 @@ ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s 			page 1
   17              	.Ltext0:
   18              		.cfi_sections	.debug_frame
   19              		.file 1 "Core/Src/main.c"
-  20              		.section	.text.delay,"ax",%progbits
+  20              		.section	.text.delay_ms,"ax",%progbits
   21              		.align	1
-  22              		.global	delay
-  23              		.syntax unified
-  24              		.thumb
-  25              		.thumb_func
-  27              	delay:
-  28              	.LVL0:
-  29              	.LFB130:
-   1:Core/Src/main.c **** #include "init.h"
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	delay_ms:
+  27              	.LVL0:
+  28              	.LFB130:
+   1:Core/Src/main.c **** // #include "init.h"
    2:Core/Src/main.c **** 
-   3:Core/Src/main.c **** void delay(volatile uint32_t s) {
-  30              		.loc 1 3 33 view -0
-  31              		.cfi_startproc
-  32              		@ args = 0, pretend = 0, frame = 8
-  33              		@ frame_needed = 0, uses_anonymous_args = 0
-  34              		@ link register save eliminated.
-  35              		.loc 1 3 33 is_stmt 0 view .LVU1
-  36 0000 82B0     		sub	sp, sp, #8
-  37              	.LCFI0:
-  38              		.cfi_def_cfa_offset 8
-  39 0002 0190     		str	r0, [sp, #4]
-   4:Core/Src/main.c ****     while (s--);
-  40              		.loc 1 4 5 is_stmt 1 view .LVU2
-  41              	.L2:
-  42              		.loc 1 4 12 discriminator 1 view .LVU3
-  43              		.loc 1 4 13 is_stmt 0 discriminator 1 view .LVU4
-  44 0004 019B     		ldr	r3, [sp, #4]
-  45 0006 5A1E     		subs	r2, r3, #1
-  46 0008 0192     		str	r2, [sp, #4]
-  47              		.loc 1 4 12 discriminator 1 view .LVU5
-  48 000a 002B     		cmp	r3, #0
-  49 000c FAD1     		bne	.L2
-   5:Core/Src/main.c **** }
-  50              		.loc 1 5 1 view .LVU6
-  51 000e 02B0     		add	sp, sp, #8
-  52              	.LCFI1:
-  53              		.cfi_def_cfa_offset 0
-ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s 			page 2
-
-
-  54              		@ sp needed
-  55 0010 7047     		bx	lr
-  56              		.cfi_endproc
-  57              	.LFE130:
-  59              		.section	.text.update_leds,"ax",%progbits
-  60              		.align	1
-  61              		.global	update_leds
-  62              		.syntax unified
-  63              		.thumb
-  64              		.thumb_func
-  66              	update_leds:
-  67              	.LVL1:
-  68              	.LFB132:
+   3:Core/Src/main.c **** // void delay(volatile uint32_t s) {
+   4:Core/Src/main.c **** //     while (s--);
+   5:Core/Src/main.c **** // }
    6:Core/Src/main.c **** 
-   7:Core/Src/main.c **** uint8_t led_count = 1;         // æŒ‰é’®2æ“ä½œæ—¶ç‚¹äº®çš„LEDæ•°é‡
-   8:Core/Src/main.c **** uint8_t current_led = 0;       // å½“å‰ç‚¹äº®çš„LEDç´¢å¼•
-   9:Core/Src/main.c **** uint32_t led_states[] = {LED1_ON, LED2_ON, LED3_ON};
+   7:Core/Src/main.c **** // uint8_t led_count = 1;         // æŒ‰é’®2æ“ä½œæ—¶ç‚¹äº®çš„LEDæ•°é‡
+   8:Core/Src/main.c **** // uint8_t current_led = 0;       // å½“å‰ç‚¹äº®çš„LEDç´¢å¼•
+   9:Core/Src/main.c **** // uint32_t led_states[] = {LED1_ON, LED2_ON, LED3_ON};
   10:Core/Src/main.c **** 
-  11:Core/Src/main.c **** uint8_t toggle_state = 0;      // è®°å½•LEDå¼€å…³çŠ¶æ€ï¼Œç”¨äºæ•°é‡ä¸º3çš„æ¨¡å¼
-  12:Core/Src/main.c **** uint8_t button1_flag;
-  13:Core/Src/main.c **** uint8_t button2_flag;
-  14:Core/Src/main.c **** int main() {
-  15:Core/Src/main.c ****     GPIO_Ini_Self_Def();
-  16:Core/Src/main.c ****     GPIO_Ini_CMSIS();
+  11:Core/Src/main.c **** // uint8_t toggle_state = 0;      // è®°å½•LEDå¼€å…³çŠ¶æ€ï¼Œç”¨äºæ•°é‡ä¸º3çš„æ¨¡å¼
+  12:Core/Src/main.c **** // uint8_t button1_flag;
+  13:Core/Src/main.c **** // uint8_t button2_flag;
+  14:Core/Src/main.c **** // int main() {
+  15:Core/Src/main.c **** //     GPIO_Ini_Self_Def();
+  16:Core/Src/main.c **** //     GPIO_Ini_CMSIS();
   17:Core/Src/main.c **** 
-  18:Core/Src/main.c ****     uint8_t button1_pressed = 0;
-  19:Core/Src/main.c ****     uint8_t button2_pressed = 0;
+  18:Core/Src/main.c **** //     uint8_t button1_pressed = 0;
+  19:Core/Src/main.c **** //     uint8_t button2_pressed = 0;
   20:Core/Src/main.c **** 
   21:Core/Src/main.c **** 
-  22:Core/Src/main.c ****     while (1) {
-  23:Core/Src/main.c ****         // æŒ‰é’®1é€»è¾‘
-  24:Core/Src/main.c ****         button1_flag=!button1_pressed;
-  25:Core/Src/main.c ****         button2_flag=!button2_pressed;
-  26:Core/Src/main.c ****         if (!(READ_BIT_SELF(GPIOC_IDR, GPIO_PIN_13) != 0)) {
-  27:Core/Src/main.c ****             if (!button1_pressed) {
-  28:Core/Src/main.c ****                 button1_pressed = 1;
+  22:Core/Src/main.c **** //     while (1) {
+  23:Core/Src/main.c **** //         // æŒ‰é’®1é€»è¾‘
+  24:Core/Src/main.c **** //         button1_flag=!button1_pressed;
+  25:Core/Src/main.c **** //         button2_flag=!button2_pressed;
+  26:Core/Src/main.c **** //         if (!(READ_BIT_SELF(GPIOC_IDR, GPIO_PIN_13) != 0)) {
+  27:Core/Src/main.c **** //             if (!button1_pressed) {
+  28:Core/Src/main.c **** //                 button1_pressed = 1;
   29:Core/Src/main.c **** 
-  30:Core/Src/main.c ****                 if (led_count == 3) {
-  31:Core/Src/main.c ****                     // å¦‚æœLEDæ•°é‡ä¸º3ï¼ŒæŒ‰ä¸‹æŒ‰é’®åˆ‡æ¢å¼€å…³çŠ¶æ€
-  32:Core/Src/main.c ****                     toggle_state = !toggle_state;
-  33:Core/Src/main.c ****                     update_leds(current_led, led_count);
-  34:Core/Src/main.c ****                 } else {
-  35:Core/Src/main.c ****                     // å¦åˆ™ï¼Œåˆ‡æ¢åˆ°ä¸‹ä¸€ä¸ªLED
-  36:Core/Src/main.c ****                     current_led = (current_led + 1) % 3;  // åˆ‡æ¢åˆ°ä¸‹ä¸€ä¸ªLED
-  37:Core/Src/main.c ****                     update_leds(current_led, led_count);
-  38:Core/Src/main.c ****                 }
-  39:Core/Src/main.c ****             }
-  40:Core/Src/main.c ****         } else {
-  41:Core/Src/main.c ****             button1_pressed = 0;
-  42:Core/Src/main.c ****         }
+  30:Core/Src/main.c **** //                 if (led_count == 3) {
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 2
+
+
+  31:Core/Src/main.c **** //                     // å¦‚æœLEDæ•°é‡ä¸º3ï¼ŒæŒ‰ä¸‹æŒ‰é’®åˆ‡æ¢å¼€å…³çŠ¶æ€
+  32:Core/Src/main.c **** //                     toggle_state = !toggle_state;
+  33:Core/Src/main.c **** //                     update_leds(current_led, led_count);
+  34:Core/Src/main.c **** //                 } else {
+  35:Core/Src/main.c **** //                     // å¦åˆ™ï¼Œåˆ‡æ¢åˆ°ä¸‹ä¸€ä¸ªLED
+  36:Core/Src/main.c **** //                     current_led = (current_led + 1) % 3;  // åˆ‡æ¢åˆ°ä¸‹ä¸€ä¸ªLED
+  37:Core/Src/main.c **** //                     update_leds(current_led, led_count);
+  38:Core/Src/main.c **** //                 }
+  39:Core/Src/main.c **** //             }
+  40:Core/Src/main.c **** //         } else {
+  41:Core/Src/main.c **** //             button1_pressed = 0;
+  42:Core/Src/main.c **** //         }
   43:Core/Src/main.c **** 
-  44:Core/Src/main.c ****         // æŒ‰é’®2é€»è¾‘
-  45:Core/Src/main.c ****         if (!(READ_BIT(GPIOC->IDR, GPIO_IDR_ID6) != 0)) {
-  46:Core/Src/main.c ****             if (!button2_pressed) {
-  47:Core/Src/main.c ****                 button2_pressed = 1;
-  48:Core/Src/main.c ****                 led_count = (led_count % 3) + 1;  // åˆ‡æ¢LEDæ•°é‡ (1->2->3->1)
-  49:Core/Src/main.c ****                 update_leds(current_led, led_count);
-ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s 			page 3
-
-
-  50:Core/Src/main.c ****             }
-  51:Core/Src/main.c ****         } else {
-  52:Core/Src/main.c ****             button2_pressed = 0;
-  53:Core/Src/main.c ****         }
+  44:Core/Src/main.c **** //         // æŒ‰é’®2é€»è¾‘
+  45:Core/Src/main.c **** //         if (!(READ_BIT(GPIOC->IDR, GPIO_IDR_ID6) != 0)) {
+  46:Core/Src/main.c **** //             if (!button2_pressed) {
+  47:Core/Src/main.c **** //                 button2_pressed = 1;
+  48:Core/Src/main.c **** //                 led_count = (led_count % 3) + 1;  // åˆ‡æ¢LEDæ•°é‡ (1->2->3->1)
+  49:Core/Src/main.c **** //                 update_leds(current_led, led_count);
+  50:Core/Src/main.c **** //             }
+  51:Core/Src/main.c **** //         } else {
+  52:Core/Src/main.c **** //             button2_pressed = 0;
+  53:Core/Src/main.c **** //         }
   54:Core/Src/main.c **** 
-  55:Core/Src/main.c ****         delay(1000);  // å»æŠ–
-  56:Core/Src/main.c ****     }
-  57:Core/Src/main.c **** }
+  55:Core/Src/main.c **** //         delay(1000);  // å»æŠ–
+  56:Core/Src/main.c **** //     }
+  57:Core/Src/main.c **** // }
   58:Core/Src/main.c **** 
-  59:Core/Src/main.c **** // æ›´æ–°LEDçŠ¶æ€
-  60:Core/Src/main.c **** void update_leds(uint8_t led_index, uint8_t count) {
-  69              		.loc 1 60 52 is_stmt 1 view -0
-  70              		.cfi_startproc
-  71              		@ args = 0, pretend = 0, frame = 0
-  72              		@ frame_needed = 0, uses_anonymous_args = 0
-  73              		@ link register save eliminated.
-  61:Core/Src/main.c ****     // å…³é—­æ‰€æœ‰LED
-  62:Core/Src/main.c ****     GPIOB->BSRR = (LED1_ON | LED2_ON | LED3_ON) << 16;
-  74              		.loc 1 62 5 view .LVU8
-  75              		.loc 1 62 17 is_stmt 0 view .LVU9
-  76 0000 154B     		ldr	r3, .L15
-  77 0002 164A     		ldr	r2, .L15+4
-  78 0004 9A61     		str	r2, [r3, #24]
+  59:Core/Src/main.c **** // // æ›´æ–°LEDçŠ¶æ€
+  60:Core/Src/main.c **** // void update_leds(uint8_t led_index, uint8_t count) {
+  61:Core/Src/main.c **** //     // å…³é—­æ‰€æœ‰LED
+  62:Core/Src/main.c **** //     GPIOB->BSRR = (LED1_ON | LED2_ON | LED3_ON) << 16;
   63:Core/Src/main.c **** 
-  64:Core/Src/main.c ****     if (count == 3) {
-  79              		.loc 1 64 5 is_stmt 1 view .LVU10
-  80              		.loc 1 64 8 is_stmt 0 view .LVU11
-  81 0006 0329     		cmp	r1, #3
-  82 0008 1BD0     		beq	.L13
-  83              	.LBB2:
-  65:Core/Src/main.c ****         // å¦‚æœLEDæ•°é‡ä¸º3ï¼Œæ ¹æ® toggle_state æ§åˆ¶æ‰€æœ‰ç¯
-  66:Core/Src/main.c ****         if (toggle_state) {
-  67:Core/Src/main.c ****             GPIOB->BSRR = LED1_ON | LED2_ON | LED3_ON;  // æ‰“å¼€æ‰€æœ‰ç¯
-  68:Core/Src/main.c ****         }
-  69:Core/Src/main.c ****     } else {
-  70:Core/Src/main.c ****         // ç‚¹äº®æŒ‡å®šæ•°é‡çš„LED
-  71:Core/Src/main.c ****         for (uint8_t i = 0; i < count; i++) {
-  84              		.loc 1 71 22 view .LVU12
-  85 000a 0022     		movs	r2, #0
-  86              	.LVL2:
-  87              		.loc 1 71 31 is_stmt 1 discriminator 1 view .LVU13
-  88 000c 8A42     		cmp	r2, r1
-  89 000e 20D2     		bcs	.L14
-  90              	.LBE2:
-  60:Core/Src/main.c ****     // å…³é—­æ‰€æœ‰LED
-  91              		.loc 1 60 52 is_stmt 0 view .LVU14
-  92 0010 10B4     		push	{r4}
-  93              	.LCFI2:
-  94              		.cfi_def_cfa_offset 4
-  95              		.cfi_offset 4, -4
-  96              	.L7:
-  97              	.LBB4:
-  98              	.LBB3:
-  72:Core/Src/main.c ****             uint8_t index = (led_index + i) % 3;  // å¾ªç¯ç‚¹äº®
-  99              		.loc 1 72 13 is_stmt 1 view .LVU15
- 100              		.loc 1 72 40 is_stmt 0 view .LVU16
- 101 0012 00EB020C 		add	ip, r0, r2
-ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s 			page 4
+  64:Core/Src/main.c **** //     if (count == 3) {
+  65:Core/Src/main.c **** //         // å¦‚æœLEDæ•°é‡ä¸º3ï¼Œæ ¹æ® toggle_state æ§åˆ¶æ‰€æœ‰ç¯
+  66:Core/Src/main.c **** //         if (toggle_state) {
+  67:Core/Src/main.c **** //             GPIOB->BSRR = LED1_ON | LED2_ON | LED3_ON;  // æ‰“å¼€æ‰€æœ‰ç¯
+  68:Core/Src/main.c **** //         }
+  69:Core/Src/main.c **** //     } else {
+  70:Core/Src/main.c **** //         // ç‚¹äº®æŒ‡å®šæ•°é‡çš„LED
+  71:Core/Src/main.c **** //         for (uint8_t i = 0; i < count; i++) {
+  72:Core/Src/main.c **** //             uint8_t index = (led_index + i) % 3;  // å¾ªç¯ç‚¹äº®
+  73:Core/Src/main.c **** //             GPIOB->BSRR = led_states[index];
+  74:Core/Src/main.c **** //         }
+  75:Core/Src/main.c **** //     }
+  76:Core/Src/main.c **** // }
+  77:Core/Src/main.c **** 
+  78:Core/Src/main.c **** #include "init.h"
+  79:Core/Src/main.c **** 
+  80:Core/Src/main.c **** //å…¨å±€ç›‘æ§å˜é‡
+  81:Core/Src/main.c **** volatile uint8_t  g_pd4_button_state  = 0;     // PD4æŒ‰é’®çŠ¶æ€
+  82:Core/Src/main.c **** volatile uint32_t g_pd4_raw_value     = 0;     // PD4åŸå§‹ç”µå¹³å€¼
+  83:Core/Src/main.c **** volatile uint8_t  g_pd4_pressed_flag  = 0;     // PD4æŒ‰ä¸‹æ ‡å¿—ä½
+  84:Core/Src/main.c **** volatile uint32_t g_button_debug_counter = 0;  // æŒ‰é’®è°ƒè¯•è®¡æ•°å™¨
+  85:Core/Src/main.c **** volatile uint8_t  g_led_step   = 0;            // LEDæ­¥è¿›å€¼: 0=å…¨ç­, 1=PB14, 2=PB7, 3=PB0
+  86:Core/Src/main.c **** volatile uint8_t  g_pg3_button_state  = 0;     // PG3æŒ‰é’®çŠ¶æ€
+  87:Core/Src/main.c **** volatile uint8_t  g_pg3_pressed_flag  = 0;     // PG3æŒ‰ä¸‹æ ‡å¿—ä½
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 3
 
 
- 102              		.loc 1 72 45 view .LVU17
- 103 0016 124B     		ldr	r3, .L15+8
- 104 0018 83FB0C43 		smull	r4, r3, r3, ip
- 105 001c A3EBEC73 		sub	r3, r3, ip, asr #31
- 106 0020 03EB4303 		add	r3, r3, r3, lsl #1
- 107 0024 ACEB0303 		sub	r3, ip, r3
- 108              	.LVL3:
-  73:Core/Src/main.c ****             GPIOB->BSRR = led_states[index];
- 109              		.loc 1 73 13 is_stmt 1 view .LVU18
- 110              		.loc 1 73 37 is_stmt 0 view .LVU19
- 111 0028 DBB2     		uxtb	r3, r3
- 112              		.loc 1 73 37 view .LVU20
- 113 002a 0E4C     		ldr	r4, .L15+12
- 114 002c 54F82340 		ldr	r4, [r4, r3, lsl #2]
- 115              		.loc 1 73 25 view .LVU21
- 116 0030 094B     		ldr	r3, .L15
- 117              	.LVL4:
- 118              		.loc 1 73 25 view .LVU22
- 119 0032 9C61     		str	r4, [r3, #24]
- 120              	.LBE3:
-  71:Core/Src/main.c ****             uint8_t index = (led_index + i) % 3;  // å¾ªç¯ç‚¹äº®
- 121              		.loc 1 71 41 is_stmt 1 discriminator 3 view .LVU23
- 122 0034 0132     		adds	r2, r2, #1
- 123              	.LVL5:
-  71:Core/Src/main.c ****             uint8_t index = (led_index + i) % 3;  // å¾ªç¯ç‚¹äº®
- 124              		.loc 1 71 41 is_stmt 0 discriminator 3 view .LVU24
- 125 0036 D2B2     		uxtb	r2, r2
- 126              	.LVL6:
-  71:Core/Src/main.c ****             uint8_t index = (led_index + i) % 3;  // å¾ªç¯ç‚¹äº®
- 127              		.loc 1 71 31 is_stmt 1 discriminator 1 view .LVU25
- 128 0038 8A42     		cmp	r2, r1
- 129 003a EAD3     		bcc	.L7
- 130              	.LBE4:
-  74:Core/Src/main.c ****         }
-  75:Core/Src/main.c ****     }
-  76:Core/Src/main.c **** }...
- 131              		.loc 1 76 1 is_stmt 0 view .LVU26
- 132 003c 5DF8044B 		ldr	r4, [sp], #4
- 133              	.LCFI3:
- 134              		.cfi_restore 4
- 135              		.cfi_def_cfa_offset 0
- 136 0040 7047     		bx	lr
- 137              	.LVL7:
- 138              	.L13:
-  66:Core/Src/main.c ****         if (toggle_state) {
- 139              		.loc 1 66 9 is_stmt 1 view .LVU27
-  66:Core/Src/main.c ****         if (toggle_state) {
- 140              		.loc 1 66 13 is_stmt 0 view .LVU28
- 141 0042 094B     		ldr	r3, .L15+16
- 142 0044 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
-  66:Core/Src/main.c ****         if (toggle_state) {
- 143              		.loc 1 66 12 view .LVU29
- 144 0046 2BB1     		cbz	r3, .L10
-  67:Core/Src/main.c ****             GPIOB->BSRR = LED1_ON | LED2_ON | LED3_ON;  // æ‰“å¼€æ‰€æœ‰ç¯
- 145              		.loc 1 67 13 is_stmt 1 view .LVU30
-  67:Core/Src/main.c ****             GPIOB->BSRR = LED1_ON | LED2_ON | LED3_ON;  // æ‰“å¼€æ‰€æœ‰ç¯
- 146              		.loc 1 67 25 is_stmt 0 view .LVU31
-ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s 			page 5
+  88:Core/Src/main.c **** volatile uint8_t  g_system_mode = 0;           // ç³»ç»Ÿæ¨¡å¼: 0=æ­£å¸¸æ¨¡å¼, 1=PD4è¾“å‡ºæ¨¡å¼
+  89:Core/Src/main.c **** volatile uint8_t  g_pd4_mode_state = 0;        // PD4å¼•è„šæ¨¡å¼çŠ¶æ€: 0=è¾“å…¥ä¸Šæ‹‰, 1=è¾“å‡ºé«
+  90:Core/Src/main.c **** 
+  91:Core/Src/main.c **** //ç®€å•å»¶æ—¶å‡½æ•°ï¼ˆæ¯«ç§’çº§ï¼‰
+  92:Core/Src/main.c **** 
+  93:Core/Src/main.c **** static void delay_ms(uint32_t ms) {
+  29              		.loc 1 93 35 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  94:Core/Src/main.c ****     for (uint32_t i = 0; i < ms * 1000U; i++) { __NOP(); }
+  34              		.loc 1 94 5 view .LVU1
+  35              	.LBB34:
+  36              		.loc 1 94 10 view .LVU2
+  37              		.loc 1 94 19 is_stmt 0 view .LVU3
+  38 0000 0022     		movs	r2, #0
+  39              		.loc 1 94 5 view .LVU4
+  40 0002 01E0     		b	.L2
+  41              	.LVL1:
+  42              	.L3:
+  43              		.loc 1 94 49 is_stmt 1 discriminator 3 view .LVU5
+  44              		.syntax unified
+  45              	@ 94 "Core/Src/main.c" 1
+  46 0004 00BF     		nop
+  47              	@ 0 "" 2
+  48              		.loc 1 94 43 discriminator 3 view .LVU6
+  49              		.thumb
+  50              		.syntax unified
+  51 0006 0132     		adds	r2, r2, #1
+  52              	.LVL2:
+  53              	.L2:
+  54              		.loc 1 94 28 discriminator 1 view .LVU7
+  55              		.loc 1 94 33 is_stmt 0 discriminator 1 view .LVU8
+  56 0008 4FF47A73 		mov	r3, #1000
+  57 000c 00FB03F3 		mul	r3, r0, r3
+  58              		.loc 1 94 28 discriminator 1 view .LVU9
+  59 0010 9342     		cmp	r3, r2
+  60 0012 F7D8     		bhi	.L3
+  61              	.LBE34:
+  95:Core/Src/main.c **** }
+  62              		.loc 1 95 1 view .LVU10
+  63 0014 7047     		bx	lr
+  64              		.cfi_endproc
+  65              	.LFE130:
+  67              		.section	.text.update_pd4_button_status,"ax",%progbits
+  68              		.align	1
+  69              		.syntax unified
+  70              		.thumb
+  71              		.thumb_func
+  73              	update_pd4_button_status:
+  74              	.LVL3:
+  75              	.LFB136:
+  96:Core/Src/main.c **** 
+  97:Core/Src/main.c **** 
+  98:Core/Src/main.c **** //LEDæ§åˆ¶å®å‡½æ•° - ç‚¹äº®æŒ‡å®šGPIOçš„LED
+  99:Core/Src/main.c **** 
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 4
 
 
- 147 0048 034B     		ldr	r3, .L15
- 148 004a 44F28102 		movw	r2, #16513
- 149 004e 9A61     		str	r2, [r3, #24]
- 150 0050 7047     		bx	lr
- 151              	.LVL8:
- 152              	.L14:
-  67:Core/Src/main.c ****             GPIOB->BSRR = LED1_ON | LED2_ON | LED3_ON;  // æ‰“å¼€æ‰€æœ‰ç¯
- 153              		.loc 1 67 25 view .LVU32
- 154 0052 7047     		bx	lr
- 155              	.LVL9:
- 156              	.L10:
-  67:Core/Src/main.c ****             GPIOB->BSRR = LED1_ON | LED2_ON | LED3_ON;  // æ‰“å¼€æ‰€æœ‰ç¯
- 157              		.loc 1 67 25 view .LVU33
- 158 0054 7047     		bx	lr
- 159              	.L16:
- 160 0056 00BF     		.align	2
- 161              	.L15:
- 162 0058 00040240 		.word	1073873920
- 163 005c 00008140 		.word	1082195968
- 164 0060 56555555 		.word	1431655766
- 165 0064 00000000 		.word	led_states
- 166 0068 00000000 		.word	toggle_state
- 167              		.cfi_endproc
- 168              	.LFE132:
- 170              		.section	.text.main,"ax",%progbits
- 171              		.align	1
- 172              		.global	main
- 173              		.syntax unified
- 174              		.thumb
- 175              		.thumb_func
- 177              	main:
- 178              	.LFB131:
-  14:Core/Src/main.c **** int main() {
- 179              		.loc 1 14 12 is_stmt 1 view -0
- 180              		.cfi_startproc
- 181              		@ args = 0, pretend = 0, frame = 0
- 182              		@ frame_needed = 0, uses_anonymous_args = 0
- 183 0000 38B5     		push	{r3, r4, r5, lr}
- 184              	.LCFI4:
- 185              		.cfi_def_cfa_offset 16
- 186              		.cfi_offset 3, -16
- 187              		.cfi_offset 4, -12
- 188              		.cfi_offset 5, -8
- 189              		.cfi_offset 14, -4
-  15:Core/Src/main.c ****     GPIO_Ini_Self_Def();
- 190              		.loc 1 15 5 view .LVU35
- 191 0002 FFF7FEFF 		bl	GPIO_Ini_Self_Def
- 192              	.LVL10:
-  16:Core/Src/main.c ****     GPIO_Ini_CMSIS();
- 193              		.loc 1 16 5 view .LVU36
- 194 0006 FFF7FEFF 		bl	GPIO_Ini_CMSIS
- 195              	.LVL11:
-  18:Core/Src/main.c ****     uint8_t button1_pressed = 0;
- 196              		.loc 1 18 5 view .LVU37
-  19:Core/Src/main.c ****     uint8_t button2_pressed = 0;
- 197              		.loc 1 19 5 view .LVU38
-  19:Core/Src/main.c ****     uint8_t button2_pressed = 0;
-ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s 			page 6
+ 100:Core/Src/main.c **** static inline void led_on(GPIO_TypeDef* port, uint8_t pin)  { port->BSRR = (1U << pin); }
+ 101:Core/Src/main.c **** 
+ 102:Core/Src/main.c **** 
+ 103:Core/Src/main.c **** //LEDæ§åˆ¶å®å‡½æ•° - ç†„ç­æŒ‡å®šGPIOçš„LED
+ 104:Core/Src/main.c **** 
+ 105:Core/Src/main.c **** static inline void led_off(GPIO_TypeDef* port, uint8_t pin) { port->BSRR = (1U << (pin + 16U)); }
+ 106:Core/Src/main.c **** 
+ 107:Core/Src/main.c **** 
+ 108:Core/Src/main.c **** //ä¸“é—¨æ§åˆ¶PB0 LEDçš„ç‚¹äº®å‡½æ•° - ç›´æ¥å†…å­˜è®¿é—®
+ 109:Core/Src/main.c **** 
+ 110:Core/Src/main.c **** static inline void pb0_led_on(void)  { *(volatile uint32_t *)(GPIOB_BASE_ADDR + BSRR_OFFSET) = (1U 
+ 111:Core/Src/main.c **** 
+ 112:Core/Src/main.c **** 
+ 113:Core/Src/main.c **** //ä¸“é—¨æ§åˆ¶PB0 LEDçš„ç†„ç­å‡½æ•° - ç›´æ¥å†…å­˜è®¿é—®
+ 114:Core/Src/main.c **** 
+ 115:Core/Src/main.c **** static inline void pb0_led_off(void) { *(volatile uint32_t *)(GPIOB_BASE_ADDR + BSRR_OFFSET) = (1U 
+ 116:Core/Src/main.c **** 
+ 117:Core/Src/main.c **** 
+ 118:Core/Src/main.c **** //è¯»å–GPIOå¼•è„šç”µå¹³
+ 119:Core/Src/main.c **** static inline uint32_t read_bit_idr(uint32_t gpio_base, uint8_t pin) {
+ 120:Core/Src/main.c ****     volatile uint32_t *idr = (volatile uint32_t *)(gpio_base + IDR_OFFSET);
+ 121:Core/Src/main.c ****     return (*idr) & (1U << pin);
+ 122:Core/Src/main.c **** }
+ 123:Core/Src/main.c **** 
+ 124:Core/Src/main.c **** 
+ 125:Core/Src/main.c **** //æ›´æ–°PD4æŒ‰é’®çŠ¶æ€åˆ°å…¨å±€å˜é‡
+ 126:Core/Src/main.c **** 
+ 127:Core/Src/main.c **** static void update_pd4_button_status(uint32_t raw_value, uint8_t pressed) {
+  76              		.loc 1 127 75 is_stmt 1 view -0
+  77              		.cfi_startproc
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 0, uses_anonymous_args = 0
+  80              		@ link register save eliminated.
+ 128:Core/Src/main.c ****     g_pd4_raw_value = raw_value;
+  81              		.loc 1 128 5 view .LVU12
+  82              		.loc 1 128 21 is_stmt 0 view .LVU13
+  83 0000 084B     		ldr	r3, .L8
+  84 0002 1860     		str	r0, [r3]
+ 129:Core/Src/main.c ****     // å†…éƒ¨ä¸Šæ‹‰ç”µé˜»: ä½ç”µå¹³=æŒ‰ä¸‹ï¼Œé«˜ç”µå¹³=é‡Šæ”¾
+ 130:Core/Src/main.c ****     g_pd4_button_state = (raw_value == 0U) ? 1U : 0U;//é€»è¾‘åè½¬
+  85              		.loc 1 130 5 is_stmt 1 view .LVU14
+  86              		.loc 1 130 24 is_stmt 0 view .LVU15
+  87 0004 58B9     		cbnz	r0, .L7
+  88              		.loc 1 130 24 discriminator 1 view .LVU16
+  89 0006 0122     		movs	r2, #1
+  90              	.L5:
+  91              		.loc 1 130 24 discriminator 4 view .LVU17
+  92 0008 074B     		ldr	r3, .L8+4
+  93 000a 1A70     		strb	r2, [r3]
+ 131:Core/Src/main.c ****     if (pressed) { 
+  94              		.loc 1 131 5 is_stmt 1 view .LVU18
+  95              		.loc 1 131 8 is_stmt 0 view .LVU19
+  96 000c 31B1     		cbz	r1, .L4
+ 132:Core/Src/main.c ****         g_pd4_pressed_flag = 1U; 
+  97              		.loc 1 132 9 is_stmt 1 view .LVU20
+  98              		.loc 1 132 28 is_stmt 0 view .LVU21
+  99 000e 074B     		ldr	r3, .L8+8
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 5
 
 
- 198              		.loc 1 19 13 is_stmt 0 view .LVU39
- 199 000a 0025     		movs	r5, #0
-  18:Core/Src/main.c ****     uint8_t button1_pressed = 0;
- 200              		.loc 1 18 13 view .LVU40
- 201 000c 2C46     		mov	r4, r5
- 202 000e 28E0     		b	.L21
- 203              	.LVL12:
- 204              	.L25:
- 205              	.LBB5:
-  32:Core/Src/main.c ****                     toggle_state = !toggle_state;
- 206              		.loc 1 32 21 is_stmt 1 view .LVU41
-  32:Core/Src/main.c ****                     toggle_state = !toggle_state;
- 207              		.loc 1 32 36 is_stmt 0 view .LVU42
- 208 0010 264A     		ldr	r2, .L26
- 209 0012 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
- 210 0014 B3FA83F3 		clz	r3, r3
- 211 0018 5B09     		lsrs	r3, r3, #5
-  32:Core/Src/main.c ****                     toggle_state = !toggle_state;
- 212              		.loc 1 32 34 view .LVU43
- 213 001a 1370     		strb	r3, [r2]
-  33:Core/Src/main.c ****                     update_leds(current_led, led_count);
- 214              		.loc 1 33 21 is_stmt 1 view .LVU44
- 215 001c 244B     		ldr	r3, .L26+4
- 216 001e 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
- 217 0020 FFF7FEFF 		bl	update_leds
- 218              	.LVL13:
- 219              	.LBE5:
-  28:Core/Src/main.c ****                 button1_pressed = 1;
- 220              		.loc 1 28 33 is_stmt 0 view .LVU45
- 221 0024 0124     		movs	r4, #1
- 222 0026 00E0     		b	.L18
- 223              	.LVL14:
- 224              	.L22:
-  41:Core/Src/main.c ****             button1_pressed = 0;
- 225              		.loc 1 41 29 view .LVU46
- 226 0028 0024     		movs	r4, #0
- 227              	.LVL15:
- 228              	.L18:
-  45:Core/Src/main.c ****         if (!(READ_BIT(GPIOC->IDR, GPIO_IDR_ID6) != 0)) {
- 229              		.loc 1 45 9 is_stmt 1 view .LVU47
-  45:Core/Src/main.c ****         if (!(READ_BIT(GPIOC->IDR, GPIO_IDR_ID6) != 0)) {
- 230              		.loc 1 45 15 is_stmt 0 view .LVU48
- 231 002a 224B     		ldr	r3, .L26+8
- 232 002c 1B69     		ldr	r3, [r3, #16]
-  45:Core/Src/main.c ****         if (!(READ_BIT(GPIOC->IDR, GPIO_IDR_ID6) != 0)) {
- 233              		.loc 1 45 12 view .LVU49
- 234 002e 13F0400F 		tst	r3, #64
- 235 0032 39D1     		bne	.L23
-  46:Core/Src/main.c ****             if (!button2_pressed) {
- 236              		.loc 1 46 13 is_stmt 1 view .LVU50
-  46:Core/Src/main.c ****             if (!button2_pressed) {
- 237              		.loc 1 46 16 is_stmt 0 view .LVU51
- 238 0034 8DB9     		cbnz	r5, .L20
- 239              	.LBB6:
-  47:Core/Src/main.c ****                 button2_pressed = 1;
- 240              		.loc 1 47 17 is_stmt 1 view .LVU52
- 241              	.LVL16:
-ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s 			page 7
+ 100 0010 0122     		movs	r2, #1
+ 101 0012 1A70     		strb	r2, [r3]
+ 133:Core/Src/main.c ****         g_button_debug_counter++; 
+ 102              		.loc 1 133 9 is_stmt 1 view .LVU22
+ 103              		.loc 1 133 31 is_stmt 0 view .LVU23
+ 104 0014 064A     		ldr	r2, .L8+12
+ 105 0016 1368     		ldr	r3, [r2]
+ 106 0018 0133     		adds	r3, r3, #1
+ 107 001a 1360     		str	r3, [r2]
+ 108              	.L4:
+ 134:Core/Src/main.c ****     }
+ 135:Core/Src/main.c **** }
+ 109              		.loc 1 135 1 view .LVU24
+ 110 001c 7047     		bx	lr
+ 111              	.L7:
+ 130:Core/Src/main.c ****     if (pressed) { 
+ 112              		.loc 1 130 24 discriminator 2 view .LVU25
+ 113 001e 0022     		movs	r2, #0
+ 114 0020 F2E7     		b	.L5
+ 115              	.L9:
+ 116 0022 00BF     		.align	2
+ 117              	.L8:
+ 118 0024 00000000 		.word	g_pd4_raw_value
+ 119 0028 00000000 		.word	g_pd4_button_state
+ 120 002c 00000000 		.word	g_pd4_pressed_flag
+ 121 0030 00000000 		.word	g_button_debug_counter
+ 122              		.cfi_endproc
+ 123              	.LFE136:
+ 125              		.section	.text.update_pg3_button_status,"ax",%progbits
+ 126              		.align	1
+ 127              		.syntax unified
+ 128              		.thumb
+ 129              		.thumb_func
+ 131              	update_pg3_button_status:
+ 132              	.LVL4:
+ 133              	.LFB137:
+ 136:Core/Src/main.c **** 
+ 137:Core/Src/main.c **** 
+ 138:Core/Src/main.c **** //æ›´æ–°PG3æŒ‰é’®çŠ¶æ€åˆ°å…¨å±€å˜é‡
+ 139:Core/Src/main.c **** 
+ 140:Core/Src/main.c **** static void update_pg3_button_status(uint32_t raw_value, uint8_t pressed) {
+ 134              		.loc 1 140 75 is_stmt 1 view -0
+ 135              		.cfi_startproc
+ 136              		@ args = 0, pretend = 0, frame = 0
+ 137              		@ frame_needed = 0, uses_anonymous_args = 0
+ 138              		@ link register save eliminated.
+ 141:Core/Src/main.c ****     // å†…éƒ¨ä¸Šæ‹‰ç”µé˜»: ä½ç”µå¹³=æŒ‰ä¸‹ï¼Œé«˜ç”µå¹³=é‡Šæ”¾
+ 142:Core/Src/main.c ****     g_pg3_button_state = (raw_value == 0U) ? 1U : 0U;
+ 139              		.loc 1 142 5 view .LVU27
+ 140              		.loc 1 142 24 is_stmt 0 view .LVU28
+ 141 0000 58B9     		cbnz	r0, .L13
+ 142              		.loc 1 142 24 discriminator 1 view .LVU29
+ 143 0002 0122     		movs	r2, #1
+ 144              	.L11:
+ 145              		.loc 1 142 24 discriminator 4 view .LVU30
+ 146 0004 064B     		ldr	r3, .L14
+ 147 0006 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 6
 
 
-  48:Core/Src/main.c ****                 led_count = (led_count % 3) + 1;  // åˆ‡æ¢LEDæ•°é‡ (1->2->3->1)
- 242              		.loc 1 48 17 view .LVU53
-  48:Core/Src/main.c ****                 led_count = (led_count % 3) + 1;  // åˆ‡æ¢LEDæ•°é‡ (1->2->3->1)
- 243              		.loc 1 48 45 is_stmt 0 view .LVU54
- 244 0036 2048     		ldr	r0, .L26+12
- 245 0038 0178     		ldrb	r1, [r0]	@ zero_extendqisi2
- 246 003a 204B     		ldr	r3, .L26+16
- 247 003c A3FB0123 		umull	r2, r3, r3, r1
- 248 0040 03F0FE02 		and	r2, r3, #254
- 249 0044 02EB5303 		add	r3, r2, r3, lsr #1
- 250 0048 C91A     		subs	r1, r1, r3
- 251 004a 0131     		adds	r1, r1, #1
- 252 004c C9B2     		uxtb	r1, r1
-  48:Core/Src/main.c ****                 led_count = (led_count % 3) + 1;  // åˆ‡æ¢LEDæ•°é‡ (1->2->3->1)
- 253              		.loc 1 48 27 view .LVU55
- 254 004e 0170     		strb	r1, [r0]
-  49:Core/Src/main.c ****                 update_leds(current_led, led_count);
- 255              		.loc 1 49 17 is_stmt 1 view .LVU56
- 256 0050 174B     		ldr	r3, .L26+4
- 257 0052 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
- 258 0054 FFF7FEFF 		bl	update_leds
- 259              	.LVL17:
-  47:Core/Src/main.c ****                 button2_pressed = 1;
- 260              		.loc 1 47 33 is_stmt 0 view .LVU57
- 261 0058 0125     		movs	r5, #1
- 262              	.LVL18:
- 263              	.L20:
-  47:Core/Src/main.c ****                 button2_pressed = 1;
- 264              		.loc 1 47 33 view .LVU58
- 265              	.LBE6:
-  55:Core/Src/main.c ****         delay(1000);  // å»æŠ–
- 266              		.loc 1 55 9 is_stmt 1 view .LVU59
- 267 005a 4FF47A70 		mov	r0, #1000
- 268 005e FFF7FEFF 		bl	delay
- 269              	.LVL19:
-  22:Core/Src/main.c ****     while (1) {
- 270              		.loc 1 22 11 view .LVU60
- 271              	.L21:
-  22:Core/Src/main.c ****     while (1) {
- 272              		.loc 1 22 5 view .LVU61
-  24:Core/Src/main.c ****         button1_flag=!button1_pressed;
- 273              		.loc 1 24 9 view .LVU62
-  24:Core/Src/main.c ****         button1_flag=!button1_pressed;
- 274              		.loc 1 24 22 is_stmt 0 view .LVU63
- 275 0062 84F00103 		eor	r3, r4, #1
-  24:Core/Src/main.c ****         button1_flag=!button1_pressed;
- 276              		.loc 1 24 21 view .LVU64
- 277 0066 164A     		ldr	r2, .L26+20
- 278 0068 1370     		strb	r3, [r2]
-  25:Core/Src/main.c ****         button2_flag=!button2_pressed;
- 279              		.loc 1 25 9 is_stmt 1 view .LVU65
-  25:Core/Src/main.c ****         button2_flag=!button2_pressed;
- 280              		.loc 1 25 22 is_stmt 0 view .LVU66
- 281 006a 85F00103 		eor	r3, r5, #1
-  25:Core/Src/main.c ****         button2_flag=!button2_pressed;
- 282              		.loc 1 25 21 view .LVU67
- 283 006e 154A     		ldr	r2, .L26+24
-ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s 			page 8
+ 143:Core/Src/main.c ****     if (pressed) { 
+ 148              		.loc 1 143 5 is_stmt 1 view .LVU31
+ 149              		.loc 1 143 8 is_stmt 0 view .LVU32
+ 150 0008 31B1     		cbz	r1, .L10
+ 144:Core/Src/main.c ****         g_pg3_pressed_flag = 1U; 
+ 151              		.loc 1 144 9 is_stmt 1 view .LVU33
+ 152              		.loc 1 144 28 is_stmt 0 view .LVU34
+ 153 000a 064B     		ldr	r3, .L14+4
+ 154 000c 0122     		movs	r2, #1
+ 155 000e 1A70     		strb	r2, [r3]
+ 145:Core/Src/main.c ****         g_button_debug_counter++; 
+ 156              		.loc 1 145 9 is_stmt 1 view .LVU35
+ 157              		.loc 1 145 31 is_stmt 0 view .LVU36
+ 158 0010 054A     		ldr	r2, .L14+8
+ 159 0012 1368     		ldr	r3, [r2]
+ 160 0014 0133     		adds	r3, r3, #1
+ 161 0016 1360     		str	r3, [r2]
+ 162              	.L10:
+ 146:Core/Src/main.c ****     }
+ 147:Core/Src/main.c **** }
+ 163              		.loc 1 147 1 view .LVU37
+ 164 0018 7047     		bx	lr
+ 165              	.L13:
+ 142:Core/Src/main.c ****     if (pressed) { 
+ 166              		.loc 1 142 24 discriminator 2 view .LVU38
+ 167 001a 0022     		movs	r2, #0
+ 168 001c F2E7     		b	.L11
+ 169              	.L15:
+ 170 001e 00BF     		.align	2
+ 171              	.L14:
+ 172 0020 00000000 		.word	g_pg3_button_state
+ 173 0024 00000000 		.word	g_pg3_pressed_flag
+ 174 0028 00000000 		.word	g_button_debug_counter
+ 175              		.cfi_endproc
+ 176              	.LFE137:
+ 178              		.section	.text.check_pd4_button,"ax",%progbits
+ 179              		.align	1
+ 180              		.syntax unified
+ 181              		.thumb
+ 182              		.thumb_func
+ 184              	check_pd4_button:
+ 185              	.LFB138:
+ 148:Core/Src/main.c **** 
+ 149:Core/Src/main.c **** //æŒ‰é”®æ£€æµ‹å‡½æ•°ï¼ˆå¸¦æ¶ˆæŠ–å¤„ç†ï¼‰
+ 150:Core/Src/main.c **** 
+ 151:Core/Src/main.c **** 
+ 152:Core/Src/main.c **** //æ£€æµ‹PD4æŒ‰é’®ï¼ˆå¸¦æ¶ˆæŠ–ï¼ŒæŒ‰ä¸‹å¹¶é‡Šæ”¾åè¿”å›1ï¼‰
+ 153:Core/Src/main.c **** 
+ 154:Core/Src/main.c **** static uint8_t check_pd4_button(void) {
+ 186              		.loc 1 154 39 is_stmt 1 view -0
+ 187              		.cfi_startproc
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 0, uses_anonymous_args = 0
+ 155:Core/Src/main.c ****     // å¦‚æœç³»ç»Ÿå¤„äºPD4è¾“å‡ºæ¨¡å¼ï¼ŒPD4æŒ‰é”®ä¸å·¥ä½œ
+ 156:Core/Src/main.c ****     if (g_system_mode == 1) {
+ 190              		.loc 1 156 5 view .LVU40
+ 191              		.loc 1 156 23 is_stmt 0 view .LVU41
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 7
 
 
- 284 0070 1370     		strb	r3, [r2]
-  26:Core/Src/main.c ****         if (!(READ_BIT_SELF(GPIOC_IDR, GPIO_PIN_13) != 0)) {
- 285              		.loc 1 26 9 is_stmt 1 view .LVU68
-  26:Core/Src/main.c ****         if (!(READ_BIT_SELF(GPIOC_IDR, GPIO_PIN_13) != 0)) {
- 286              		.loc 1 26 15 is_stmt 0 view .LVU69
- 287 0072 154B     		ldr	r3, .L26+28
- 288 0074 D3F81038 		ldr	r3, [r3, #2064]
-  26:Core/Src/main.c ****         if (!(READ_BIT_SELF(GPIOC_IDR, GPIO_PIN_13) != 0)) {
- 289              		.loc 1 26 12 view .LVU70
- 290 0078 13F4005F 		tst	r3, #8192
- 291 007c D4D1     		bne	.L22
-  27:Core/Src/main.c ****             if (!button1_pressed) {
- 292              		.loc 1 27 13 is_stmt 1 view .LVU71
-  27:Core/Src/main.c ****             if (!button1_pressed) {
- 293              		.loc 1 27 16 is_stmt 0 view .LVU72
- 294 007e 002C     		cmp	r4, #0
- 295 0080 D3D1     		bne	.L18
-  28:Core/Src/main.c ****                 button1_pressed = 1;
- 296              		.loc 1 28 17 is_stmt 1 view .LVU73
- 297              	.LVL20:
-  30:Core/Src/main.c ****                 if (led_count == 3) {
- 298              		.loc 1 30 17 view .LVU74
-  30:Core/Src/main.c ****                 if (led_count == 3) {
- 299              		.loc 1 30 31 is_stmt 0 view .LVU75
- 300 0082 0D4B     		ldr	r3, .L26+12
- 301 0084 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
-  30:Core/Src/main.c ****                 if (led_count == 3) {
- 302              		.loc 1 30 20 view .LVU76
- 303 0086 0329     		cmp	r1, #3
- 304 0088 C2D0     		beq	.L25
- 305              	.LBB7:
-  36:Core/Src/main.c ****                     current_led = (current_led + 1) % 3;  // åˆ‡æ¢åˆ°ä¸‹ä¸€ä¸ªLED
- 306              		.loc 1 36 21 is_stmt 1 view .LVU77
-  36:Core/Src/main.c ****                     current_led = (current_led + 1) % 3;  // åˆ‡æ¢åˆ°ä¸‹ä¸€ä¸ªLED
- 307              		.loc 1 36 48 is_stmt 0 view .LVU78
- 308 008a 094A     		ldr	r2, .L26+4
- 309 008c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
- 310 008e 0133     		adds	r3, r3, #1
-  36:Core/Src/main.c ****                     current_led = (current_led + 1) % 3;  // åˆ‡æ¢åˆ°ä¸‹ä¸€ä¸ªLED
- 311              		.loc 1 36 53 view .LVU79
- 312 0090 0E48     		ldr	r0, .L26+32
- 313 0092 80FB0340 		smull	r4, r0, r0, r3
- 314 0096 00EB4000 		add	r0, r0, r0, lsl #1
- 315 009a 181A     		subs	r0, r3, r0
-  36:Core/Src/main.c ****                     current_led = (current_led + 1) % 3;  // åˆ‡æ¢åˆ°ä¸‹ä¸€ä¸ªLED
- 316              		.loc 1 36 33 view .LVU80
- 317 009c 1070     		strb	r0, [r2]
-  37:Core/Src/main.c ****                     update_leds(current_led, led_count);
- 318              		.loc 1 37 21 is_stmt 1 view .LVU81
- 319 009e C0B2     		uxtb	r0, r0
- 320 00a0 FFF7FEFF 		bl	update_leds
- 321              	.LVL21:
- 322              	.LBE7:
-  28:Core/Src/main.c ****                 button1_pressed = 1;
- 323              		.loc 1 28 33 is_stmt 0 view .LVU82
- 324 00a4 0124     		movs	r4, #1
- 325 00a6 C0E7     		b	.L18
-ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s 			page 9
+ 192 0000 1D4B     		ldr	r3, .L27
+ 193 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 194 0004 DBB2     		uxtb	r3, r3
+ 195              		.loc 1 156 8 view .LVU42
+ 196 0006 012B     		cmp	r3, #1
+ 197 0008 33D0     		beq	.L20
+ 154:Core/Src/main.c ****     // å¦‚æœç³»ç»Ÿå¤„äºPD4è¾“å‡ºæ¨¡å¼ï¼ŒPD4æŒ‰é”®ä¸å·¥ä½œ
+ 198              		.loc 1 154 39 view .LVU43
+ 199 000a 10B5     		push	{r4, lr}
+ 200              	.LCFI0:
+ 201              		.cfi_def_cfa_offset 8
+ 202              		.cfi_offset 4, -8
+ 203              		.cfi_offset 14, -4
+ 157:Core/Src/main.c ****         return 0;
+ 158:Core/Src/main.c ****     }
+ 159:Core/Src/main.c **** 
+ 160:Core/Src/main.c ****     uint8_t result = 0;
+ 204              		.loc 1 160 5 is_stmt 1 view .LVU44
+ 205              	.LVL5:
+ 161:Core/Src/main.c **** 
+ 162:Core/Src/main.c ****     uint32_t raw = read_bit_idr(GPIOD_BASE_ADDR, 4);
+ 206              		.loc 1 162 5 view .LVU45
+ 207              	.LBB35:
+ 208              	.LBI35:
+ 119:Core/Src/main.c ****     volatile uint32_t *idr = (volatile uint32_t *)(gpio_base + IDR_OFFSET);
+ 209              		.loc 1 119 24 view .LVU46
+ 210              	.LBB36:
+ 120:Core/Src/main.c ****     return (*idr) & (1U << pin);
+ 211              		.loc 1 120 5 view .LVU47
+ 121:Core/Src/main.c **** }
+ 212              		.loc 1 121 5 view .LVU48
+ 121:Core/Src/main.c **** }
+ 213              		.loc 1 121 13 is_stmt 0 view .LVU49
+ 214 000c 1B4B     		ldr	r3, .L27+4
+ 215 000e D3F8104C 		ldr	r4, [r3, #3088]
+ 121:Core/Src/main.c **** }
+ 216              		.loc 1 121 19 view .LVU50
+ 217 0012 04F01004 		and	r4, r4, #16
+ 218              	.LVL6:
+ 121:Core/Src/main.c **** }
+ 219              		.loc 1 121 19 view .LVU51
+ 220              	.LBE36:
+ 221              	.LBE35:
+ 163:Core/Src/main.c ****     update_pd4_button_status(raw, 0);
+ 222              		.loc 1 163 5 is_stmt 1 view .LVU52
+ 223 0016 0021     		movs	r1, #0
+ 224 0018 2046     		mov	r0, r4
+ 225 001a FFF7FEFF 		bl	update_pd4_button_status
+ 226              	.LVL7:
+ 164:Core/Src/main.c **** 
+ 165:Core/Src/main.c ****     // æ£€æµ‹åˆ°ä½ç”µå¹³ï¼ˆå¯èƒ½æŒ‰ä¸‹ï¼‰
+ 166:Core/Src/main.c ****     if (raw == 0U) {
+ 227              		.loc 1 166 5 view .LVU53
+ 228              		.loc 1 166 8 is_stmt 0 view .LVU54
+ 229 001e 0CB1     		cbz	r4, .L26
+ 160:Core/Src/main.c **** 
+ 230              		.loc 1 160 13 view .LVU55
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 8
 
 
- 326              	.LVL22:
- 327              	.L23:
-  52:Core/Src/main.c ****             button2_pressed = 0;
- 328              		.loc 1 52 29 view .LVU83
- 329 00a8 0025     		movs	r5, #0
- 330              	.LVL23:
-  52:Core/Src/main.c ****             button2_pressed = 0;
- 331              		.loc 1 52 29 view .LVU84
- 332 00aa D6E7     		b	.L20
- 333              	.L27:
- 334              		.align	2
- 335              	.L26:
- 336 00ac 00000000 		.word	toggle_state
- 337 00b0 00000000 		.word	current_led
- 338 00b4 00080240 		.word	1073874944
- 339 00b8 00000000 		.word	led_count
- 340 00bc ABAAAAAA 		.word	-1431655765
- 341 00c0 00000000 		.word	button1_flag
- 342 00c4 00000000 		.word	button2_flag
- 343 00c8 00000240 		.word	1073872896
- 344 00cc 56555555 		.word	1431655766
- 345              		.cfi_endproc
- 346              	.LFE131:
- 348              		.global	button2_flag
- 349              		.section	.bss.button2_flag,"aw",%nobits
- 352              	button2_flag:
- 353 0000 00       		.space	1
- 354              		.global	button1_flag
- 355              		.section	.bss.button1_flag,"aw",%nobits
- 358              	button1_flag:
- 359 0000 00       		.space	1
- 360              		.global	toggle_state
- 361              		.section	.bss.toggle_state,"aw",%nobits
- 364              	toggle_state:
- 365 0000 00       		.space	1
- 366              		.global	led_states
- 367              		.section	.data.led_states,"aw"
- 368              		.align	2
- 371              	led_states:
- 372 0000 00400000 		.word	16384
- 373 0004 80000000 		.word	128
- 374 0008 01000000 		.word	1
- 375              		.global	current_led
- 376              		.section	.bss.current_led,"aw",%nobits
- 379              	current_led:
- 380 0000 00       		.space	1
- 381              		.global	led_count
- 382              		.section	.data.led_count,"aw"
- 385              	led_count:
- 386 0000 01       		.byte	1
- 387              		.text
- 388              	.Letext0:
- 389              		.file 2 "E:/make/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/machine/_default_types.h
- 390              		.file 3 "E:/make/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/sys/_stdint.h"
- 391              		.file 4 "CMSIS/Devices/STM32F4xx/Inc/STM32F429xx/stm32f429xx.h"
- 392              		.file 5 "Core/Inc/init.h"
-ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s 			page 10
+ 231 0020 0020     		movs	r0, #0
+ 232              	.LVL8:
+ 233              	.L17:
+ 167:Core/Src/main.c ****         delay_ms(20);  // å»¶æ—¶æ¶ˆæŠ–
+ 168:Core/Src/main.c ****         raw = read_bit_idr(GPIOD_BASE_ADDR, 4);
+ 169:Core/Src/main.c ****         update_pd4_button_status(raw, 0);
+ 170:Core/Src/main.c **** 
+ 171:Core/Src/main.c ****         // å†æ¬¡ç¡®è®¤ä½ç”µå¹³ï¼ˆç¡®è®¤æŒ‰ä¸‹ï¼‰
+ 172:Core/Src/main.c ****         if (raw == 0U) {
+ 173:Core/Src/main.c ****             // ç­‰å¾…æŒ‰é’®é‡Šæ”¾
+ 174:Core/Src/main.c ****             while (read_bit_idr(GPIOD_BASE_ADDR, 4) == 0U) {
+ 175:Core/Src/main.c ****                 update_pd4_button_status(read_bit_idr(GPIOD_BASE_ADDR, 4), 0);
+ 176:Core/Src/main.c ****             }
+ 177:Core/Src/main.c ****             result = 1;  // æ ‡è®°æœ‰æ•ˆæŒ‰ä¸‹
+ 178:Core/Src/main.c ****             update_pd4_button_status(read_bit_idr(GPIOD_BASE_ADDR, 4), 1);
+ 179:Core/Src/main.c ****         }
+ 180:Core/Src/main.c ****     }
+ 181:Core/Src/main.c **** 
+ 182:Core/Src/main.c ****     return result;
+ 183:Core/Src/main.c **** }
+ 234              		.loc 1 183 1 view .LVU56
+ 235 0022 10BD     		pop	{r4, pc}
+ 236              	.LVL9:
+ 237              	.L26:
+ 167:Core/Src/main.c ****         delay_ms(20);  // å»¶æ—¶æ¶ˆæŠ–
+ 238              		.loc 1 167 9 is_stmt 1 view .LVU57
+ 239 0024 1420     		movs	r0, #20
+ 240 0026 FFF7FEFF 		bl	delay_ms
+ 241              	.LVL10:
+ 168:Core/Src/main.c ****         update_pd4_button_status(raw, 0);
+ 242              		.loc 1 168 9 view .LVU58
+ 243              	.LBB37:
+ 244              	.LBI37:
+ 119:Core/Src/main.c ****     volatile uint32_t *idr = (volatile uint32_t *)(gpio_base + IDR_OFFSET);
+ 245              		.loc 1 119 24 view .LVU59
+ 246              	.LBB38:
+ 120:Core/Src/main.c ****     return (*idr) & (1U << pin);
+ 247              		.loc 1 120 5 view .LVU60
+ 121:Core/Src/main.c **** }
+ 248              		.loc 1 121 5 view .LVU61
+ 121:Core/Src/main.c **** }
+ 249              		.loc 1 121 13 is_stmt 0 view .LVU62
+ 250 002a 144B     		ldr	r3, .L27+4
+ 251 002c D3F8104C 		ldr	r4, [r3, #3088]
+ 252              	.LVL11:
+ 121:Core/Src/main.c **** }
+ 253              		.loc 1 121 19 view .LVU63
+ 254 0030 04F01004 		and	r4, r4, #16
+ 255              	.LVL12:
+ 121:Core/Src/main.c **** }
+ 256              		.loc 1 121 19 view .LVU64
+ 257              	.LBE38:
+ 258              	.LBE37:
+ 169:Core/Src/main.c **** 
+ 259              		.loc 1 169 9 is_stmt 1 view .LVU65
+ 260 0034 0021     		movs	r1, #0
+ 261 0036 2046     		mov	r0, r4
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 9
+
+
+ 262 0038 FFF7FEFF 		bl	update_pd4_button_status
+ 263              	.LVL13:
+ 172:Core/Src/main.c ****             // ç­‰å¾…æŒ‰é’®é‡Šæ”¾
+ 264              		.loc 1 172 9 view .LVU66
+ 172:Core/Src/main.c ****             // ç­‰å¾…æŒ‰é’®é‡Šæ”¾
+ 265              		.loc 1 172 12 is_stmt 0 view .LVU67
+ 266 003c 4CB1     		cbz	r4, .L18
+ 160:Core/Src/main.c **** 
+ 267              		.loc 1 160 13 view .LVU68
+ 268 003e 0020     		movs	r0, #0
+ 269 0040 EFE7     		b	.L17
+ 270              	.L19:
+ 175:Core/Src/main.c ****             }
+ 271              		.loc 1 175 17 is_stmt 1 view .LVU69
+ 272              	.LVL14:
+ 273              	.LBB39:
+ 274              	.LBI39:
+ 119:Core/Src/main.c ****     volatile uint32_t *idr = (volatile uint32_t *)(gpio_base + IDR_OFFSET);
+ 275              		.loc 1 119 24 view .LVU70
+ 276              	.LBB40:
+ 120:Core/Src/main.c ****     return (*idr) & (1U << pin);
+ 277              		.loc 1 120 5 view .LVU71
+ 121:Core/Src/main.c **** }
+ 278              		.loc 1 121 5 view .LVU72
+ 121:Core/Src/main.c **** }
+ 279              		.loc 1 121 13 is_stmt 0 view .LVU73
+ 280 0042 0E4B     		ldr	r3, .L27+4
+ 281 0044 D3F8100C 		ldr	r0, [r3, #3088]
+ 282              	.LVL15:
+ 121:Core/Src/main.c **** }
+ 283              		.loc 1 121 13 view .LVU74
+ 284              	.LBE40:
+ 285              	.LBE39:
+ 175:Core/Src/main.c ****             }
+ 286              		.loc 1 175 17 discriminator 1 view .LVU75
+ 287 0048 0021     		movs	r1, #0
+ 288 004a 00F01000 		and	r0, r0, #16
+ 289 004e FFF7FEFF 		bl	update_pd4_button_status
+ 290              	.LVL16:
+ 291              	.L18:
+ 174:Core/Src/main.c ****                 update_pd4_button_status(read_bit_idr(GPIOD_BASE_ADDR, 4), 0);
+ 292              		.loc 1 174 53 is_stmt 1 view .LVU76
+ 293              	.LBB41:
+ 294              	.LBI41:
+ 119:Core/Src/main.c ****     volatile uint32_t *idr = (volatile uint32_t *)(gpio_base + IDR_OFFSET);
+ 295              		.loc 1 119 24 view .LVU77
+ 296              	.LBB42:
+ 120:Core/Src/main.c ****     return (*idr) & (1U << pin);
+ 297              		.loc 1 120 5 view .LVU78
+ 121:Core/Src/main.c **** }
+ 298              		.loc 1 121 5 view .LVU79
+ 121:Core/Src/main.c **** }
+ 299              		.loc 1 121 13 is_stmt 0 view .LVU80
+ 300 0052 0A4B     		ldr	r3, .L27+4
+ 301 0054 D3F8103C 		ldr	r3, [r3, #3088]
+ 302              	.LVL17:
+ 121:Core/Src/main.c **** }
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 10
+
+
+ 303              		.loc 1 121 13 view .LVU81
+ 304              	.LBE42:
+ 305              	.LBE41:
+ 174:Core/Src/main.c ****                 update_pd4_button_status(read_bit_idr(GPIOD_BASE_ADDR, 4), 0);
+ 306              		.loc 1 174 53 discriminator 1 view .LVU82
+ 307 0058 13F0100F 		tst	r3, #16
+ 308 005c F1D0     		beq	.L19
+ 177:Core/Src/main.c ****             update_pd4_button_status(read_bit_idr(GPIOD_BASE_ADDR, 4), 1);
+ 309              		.loc 1 177 13 is_stmt 1 view .LVU83
+ 310              	.LVL18:
+ 178:Core/Src/main.c ****         }
+ 311              		.loc 1 178 13 view .LVU84
+ 312              	.LBB43:
+ 313              	.LBI43:
+ 119:Core/Src/main.c ****     volatile uint32_t *idr = (volatile uint32_t *)(gpio_base + IDR_OFFSET);
+ 314              		.loc 1 119 24 view .LVU85
+ 315              	.LBB44:
+ 120:Core/Src/main.c ****     return (*idr) & (1U << pin);
+ 316              		.loc 1 120 5 view .LVU86
+ 121:Core/Src/main.c **** }
+ 317              		.loc 1 121 5 view .LVU87
+ 121:Core/Src/main.c **** }
+ 318              		.loc 1 121 13 is_stmt 0 view .LVU88
+ 319 005e 074B     		ldr	r3, .L27+4
+ 320 0060 D3F8100C 		ldr	r0, [r3, #3088]
+ 321              	.LVL19:
+ 121:Core/Src/main.c **** }
+ 322              		.loc 1 121 13 view .LVU89
+ 323              	.LBE44:
+ 324              	.LBE43:
+ 178:Core/Src/main.c ****         }
+ 325              		.loc 1 178 13 discriminator 1 view .LVU90
+ 326 0064 0121     		movs	r1, #1
+ 327 0066 00F01000 		and	r0, r0, #16
+ 328 006a FFF7FEFF 		bl	update_pd4_button_status
+ 329              	.LVL20:
+ 177:Core/Src/main.c ****             update_pd4_button_status(read_bit_idr(GPIOD_BASE_ADDR, 4), 1);
+ 330              		.loc 1 177 20 view .LVU91
+ 331 006e 0120     		movs	r0, #1
+ 332 0070 D7E7     		b	.L17
+ 333              	.LVL21:
+ 334              	.L20:
+ 335              	.LCFI1:
+ 336              		.cfi_def_cfa_offset 0
+ 337              		.cfi_restore 4
+ 338              		.cfi_restore 14
+ 157:Core/Src/main.c ****     }
+ 339              		.loc 1 157 16 view .LVU92
+ 340 0072 0020     		movs	r0, #0
+ 341              		.loc 1 183 1 view .LVU93
+ 342 0074 7047     		bx	lr
+ 343              	.L28:
+ 344 0076 00BF     		.align	2
+ 345              	.L27:
+ 346 0078 00000000 		.word	g_system_mode
+ 347 007c 00000240 		.word	1073872896
+ 348              		.cfi_endproc
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 11
+
+
+ 349              	.LFE138:
+ 351              		.section	.text.check_pg3_button,"ax",%progbits
+ 352              		.align	1
+ 353              		.syntax unified
+ 354              		.thumb
+ 355              		.thumb_func
+ 357              	check_pg3_button:
+ 358              	.LFB139:
+ 184:Core/Src/main.c **** 
+ 185:Core/Src/main.c **** 
+ 186:Core/Src/main.c **** //æ£€æµ‹PG3æŒ‰é’®ï¼ˆå¸¦æ¶ˆæŠ–ï¼ŒæŒ‰ä¸‹å¹¶é‡Šæ”¾åè¿”å›1ï¼‰
+ 187:Core/Src/main.c **** 
+ 188:Core/Src/main.c **** static uint8_t check_pg3_button(void) {
+ 359              		.loc 1 188 39 is_stmt 1 view -0
+ 360              		.cfi_startproc
+ 361              		@ args = 0, pretend = 0, frame = 0
+ 362              		@ frame_needed = 0, uses_anonymous_args = 0
+ 363 0000 10B5     		push	{r4, lr}
+ 364              	.LCFI2:
+ 365              		.cfi_def_cfa_offset 8
+ 366              		.cfi_offset 4, -8
+ 367              		.cfi_offset 14, -4
+ 189:Core/Src/main.c ****     uint8_t result = 0;
+ 368              		.loc 1 189 5 view .LVU95
+ 369              	.LVL22:
+ 190:Core/Src/main.c ****     uint32_t raw = read_bit_idr(GPIOG_BASE_ADDR, 3);
+ 370              		.loc 1 190 5 view .LVU96
+ 371              	.LBB45:
+ 372              	.LBI45:
+ 119:Core/Src/main.c ****     volatile uint32_t *idr = (volatile uint32_t *)(gpio_base + IDR_OFFSET);
+ 373              		.loc 1 119 24 view .LVU97
+ 374              	.LBB46:
+ 120:Core/Src/main.c ****     return (*idr) & (1U << pin);
+ 375              		.loc 1 120 5 view .LVU98
+ 121:Core/Src/main.c **** }
+ 376              		.loc 1 121 5 view .LVU99
+ 121:Core/Src/main.c **** }
+ 377              		.loc 1 121 13 is_stmt 0 view .LVU100
+ 378 0002 194B     		ldr	r3, .L36
+ 379 0004 D3F81048 		ldr	r4, [r3, #2064]
+ 121:Core/Src/main.c **** }
+ 380              		.loc 1 121 19 view .LVU101
+ 381 0008 04F00804 		and	r4, r4, #8
+ 382              	.LVL23:
+ 121:Core/Src/main.c **** }
+ 383              		.loc 1 121 19 view .LVU102
+ 384              	.LBE46:
+ 385              	.LBE45:
+ 191:Core/Src/main.c ****     update_pg3_button_status(raw, 0);
+ 386              		.loc 1 191 5 is_stmt 1 view .LVU103
+ 387 000c 0021     		movs	r1, #0
+ 388 000e 2046     		mov	r0, r4
+ 389 0010 FFF7FEFF 		bl	update_pg3_button_status
+ 390              	.LVL24:
+ 192:Core/Src/main.c **** 
+ 193:Core/Src/main.c ****     // æ£€æµ‹åˆ°ä½ç”µå¹³ï¼ˆå¯èƒ½æŒ‰ä¸‹ï¼‰
+ 194:Core/Src/main.c ****     if (raw == 0U) {
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 12
+
+
+ 391              		.loc 1 194 5 view .LVU104
+ 392              		.loc 1 194 8 is_stmt 0 view .LVU105
+ 393 0014 0CB1     		cbz	r4, .L35
+ 189:Core/Src/main.c ****     uint32_t raw = read_bit_idr(GPIOG_BASE_ADDR, 3);
+ 394              		.loc 1 189 13 view .LVU106
+ 395 0016 0020     		movs	r0, #0
+ 396              	.LVL25:
+ 397              	.L30:
+ 195:Core/Src/main.c ****         delay_ms(20);  // å»¶æ—¶æ¶ˆæŠ–
+ 196:Core/Src/main.c ****         raw = read_bit_idr(GPIOG_BASE_ADDR, 3);
+ 197:Core/Src/main.c ****         update_pg3_button_status(raw, 0);
+ 198:Core/Src/main.c **** 
+ 199:Core/Src/main.c ****         // å†æ¬¡ç¡®è®¤ä½ç”µå¹³ï¼ˆç¡®è®¤æŒ‰ä¸‹ï¼‰
+ 200:Core/Src/main.c ****         if (raw == 0U) {
+ 201:Core/Src/main.c ****             // ç­‰å¾…æŒ‰é’®é‡Šæ”¾
+ 202:Core/Src/main.c ****             while (read_bit_idr(GPIOG_BASE_ADDR, 3) == 0U) {
+ 203:Core/Src/main.c ****                 update_pg3_button_status(read_bit_idr(GPIOG_BASE_ADDR, 3), 0);
+ 204:Core/Src/main.c ****             }
+ 205:Core/Src/main.c ****             result = 1;  // æ ‡è®°æœ‰æ•ˆæŒ‰ä¸‹
+ 206:Core/Src/main.c ****             update_pg3_button_status(read_bit_idr(GPIOG_BASE_ADDR, 3), 1);
+ 207:Core/Src/main.c ****         }
+ 208:Core/Src/main.c ****     }
+ 209:Core/Src/main.c ****     return result;
+ 398              		.loc 1 209 5 is_stmt 1 view .LVU107
+ 210:Core/Src/main.c **** }
+ 399              		.loc 1 210 1 is_stmt 0 view .LVU108
+ 400 0018 10BD     		pop	{r4, pc}
+ 401              	.LVL26:
+ 402              	.L35:
+ 195:Core/Src/main.c ****         delay_ms(20);  // å»¶æ—¶æ¶ˆæŠ–
+ 403              		.loc 1 195 9 is_stmt 1 view .LVU109
+ 404 001a 1420     		movs	r0, #20
+ 405 001c FFF7FEFF 		bl	delay_ms
+ 406              	.LVL27:
+ 196:Core/Src/main.c ****         update_pg3_button_status(raw, 0);
+ 407              		.loc 1 196 9 view .LVU110
+ 408              	.LBB47:
+ 409              	.LBI47:
+ 119:Core/Src/main.c ****     volatile uint32_t *idr = (volatile uint32_t *)(gpio_base + IDR_OFFSET);
+ 410              		.loc 1 119 24 view .LVU111
+ 411              	.LBB48:
+ 120:Core/Src/main.c ****     return (*idr) & (1U << pin);
+ 412              		.loc 1 120 5 view .LVU112
+ 121:Core/Src/main.c **** }
+ 413              		.loc 1 121 5 view .LVU113
+ 121:Core/Src/main.c **** }
+ 414              		.loc 1 121 13 is_stmt 0 view .LVU114
+ 415 0020 114B     		ldr	r3, .L36
+ 416 0022 D3F81048 		ldr	r4, [r3, #2064]
+ 417              	.LVL28:
+ 121:Core/Src/main.c **** }
+ 418              		.loc 1 121 19 view .LVU115
+ 419 0026 04F00804 		and	r4, r4, #8
+ 420              	.LVL29:
+ 121:Core/Src/main.c **** }
+ 421              		.loc 1 121 19 view .LVU116
+ 422              	.LBE48:
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 13
+
+
+ 423              	.LBE47:
+ 197:Core/Src/main.c **** 
+ 424              		.loc 1 197 9 is_stmt 1 view .LVU117
+ 425 002a 0021     		movs	r1, #0
+ 426 002c 2046     		mov	r0, r4
+ 427 002e FFF7FEFF 		bl	update_pg3_button_status
+ 428              	.LVL30:
+ 200:Core/Src/main.c ****             // ç­‰å¾…æŒ‰é’®é‡Šæ”¾
+ 429              		.loc 1 200 9 view .LVU118
+ 200:Core/Src/main.c ****             // ç­‰å¾…æŒ‰é’®é‡Šæ”¾
+ 430              		.loc 1 200 12 is_stmt 0 view .LVU119
+ 431 0032 4CB1     		cbz	r4, .L31
+ 189:Core/Src/main.c ****     uint32_t raw = read_bit_idr(GPIOG_BASE_ADDR, 3);
+ 432              		.loc 1 189 13 view .LVU120
+ 433 0034 0020     		movs	r0, #0
+ 434 0036 EFE7     		b	.L30
+ 435              	.L32:
+ 203:Core/Src/main.c ****             }
+ 436              		.loc 1 203 17 is_stmt 1 view .LVU121
+ 437              	.LVL31:
+ 438              	.LBB49:
+ 439              	.LBI49:
+ 119:Core/Src/main.c ****     volatile uint32_t *idr = (volatile uint32_t *)(gpio_base + IDR_OFFSET);
+ 440              		.loc 1 119 24 view .LVU122
+ 441              	.LBB50:
+ 120:Core/Src/main.c ****     return (*idr) & (1U << pin);
+ 442              		.loc 1 120 5 view .LVU123
+ 121:Core/Src/main.c **** }
+ 443              		.loc 1 121 5 view .LVU124
+ 121:Core/Src/main.c **** }
+ 444              		.loc 1 121 13 is_stmt 0 view .LVU125
+ 445 0038 0B4B     		ldr	r3, .L36
+ 446 003a D3F81008 		ldr	r0, [r3, #2064]
+ 447              	.LVL32:
+ 121:Core/Src/main.c **** }
+ 448              		.loc 1 121 13 view .LVU126
+ 449              	.LBE50:
+ 450              	.LBE49:
+ 203:Core/Src/main.c ****             }
+ 451              		.loc 1 203 17 discriminator 1 view .LVU127
+ 452 003e 0021     		movs	r1, #0
+ 453 0040 00F00800 		and	r0, r0, #8
+ 454 0044 FFF7FEFF 		bl	update_pg3_button_status
+ 455              	.LVL33:
+ 456              	.L31:
+ 202:Core/Src/main.c ****                 update_pg3_button_status(read_bit_idr(GPIOG_BASE_ADDR, 3), 0);
+ 457              		.loc 1 202 53 is_stmt 1 view .LVU128
+ 458              	.LBB51:
+ 459              	.LBI51:
+ 119:Core/Src/main.c ****     volatile uint32_t *idr = (volatile uint32_t *)(gpio_base + IDR_OFFSET);
+ 460              		.loc 1 119 24 view .LVU129
+ 461              	.LBB52:
+ 120:Core/Src/main.c ****     return (*idr) & (1U << pin);
+ 462              		.loc 1 120 5 view .LVU130
+ 121:Core/Src/main.c **** }
+ 463              		.loc 1 121 5 view .LVU131
+ 121:Core/Src/main.c **** }
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 14
+
+
+ 464              		.loc 1 121 13 is_stmt 0 view .LVU132
+ 465 0048 074B     		ldr	r3, .L36
+ 466 004a D3F81038 		ldr	r3, [r3, #2064]
+ 467              	.LVL34:
+ 121:Core/Src/main.c **** }
+ 468              		.loc 1 121 13 view .LVU133
+ 469              	.LBE52:
+ 470              	.LBE51:
+ 202:Core/Src/main.c ****                 update_pg3_button_status(read_bit_idr(GPIOG_BASE_ADDR, 3), 0);
+ 471              		.loc 1 202 53 discriminator 1 view .LVU134
+ 472 004e 13F0080F 		tst	r3, #8
+ 473 0052 F1D0     		beq	.L32
+ 205:Core/Src/main.c ****             update_pg3_button_status(read_bit_idr(GPIOG_BASE_ADDR, 3), 1);
+ 474              		.loc 1 205 13 is_stmt 1 view .LVU135
+ 475              	.LVL35:
+ 206:Core/Src/main.c ****         }
+ 476              		.loc 1 206 13 view .LVU136
+ 477              	.LBB53:
+ 478              	.LBI53:
+ 119:Core/Src/main.c ****     volatile uint32_t *idr = (volatile uint32_t *)(gpio_base + IDR_OFFSET);
+ 479              		.loc 1 119 24 view .LVU137
+ 480              	.LBB54:
+ 120:Core/Src/main.c ****     return (*idr) & (1U << pin);
+ 481              		.loc 1 120 5 view .LVU138
+ 121:Core/Src/main.c **** }
+ 482              		.loc 1 121 5 view .LVU139
+ 121:Core/Src/main.c **** }
+ 483              		.loc 1 121 13 is_stmt 0 view .LVU140
+ 484 0054 044B     		ldr	r3, .L36
+ 485 0056 D3F81008 		ldr	r0, [r3, #2064]
+ 486              	.LVL36:
+ 121:Core/Src/main.c **** }
+ 487              		.loc 1 121 13 view .LVU141
+ 488              	.LBE54:
+ 489              	.LBE53:
+ 206:Core/Src/main.c ****         }
+ 490              		.loc 1 206 13 discriminator 1 view .LVU142
+ 491 005a 0121     		movs	r1, #1
+ 492 005c 00F00800 		and	r0, r0, #8
+ 493 0060 FFF7FEFF 		bl	update_pg3_button_status
+ 494              	.LVL37:
+ 205:Core/Src/main.c ****             update_pg3_button_status(read_bit_idr(GPIOG_BASE_ADDR, 3), 1);
+ 495              		.loc 1 205 20 view .LVU143
+ 496 0064 0120     		movs	r0, #1
+ 497 0066 D7E7     		b	.L30
+ 498              	.L37:
+ 499              		.align	2
+ 500              	.L36:
+ 501 0068 00100240 		.word	1073876992
+ 502              		.cfi_endproc
+ 503              	.LFE139:
+ 505              		.section	.text.all_work_leds_off,"ax",%progbits
+ 506              		.align	1
+ 507              		.syntax unified
+ 508              		.thumb
+ 509              		.thumb_func
+ 511              	all_work_leds_off:
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 15
+
+
+ 512              	.LFB140:
+ 211:Core/Src/main.c **** 
+ 212:Core/Src/main.c **** //LEDæ§åˆ¶å‡½æ•°
+ 213:Core/Src/main.c **** 
+ 214:Core/Src/main.c **** //å…³é—­æ‰€æœ‰å·¥ä½œLEDï¼ˆPB14, PB7, PB0ï¼‰
+ 215:Core/Src/main.c **** 
+ 216:Core/Src/main.c **** static void all_work_leds_off(void) {
+ 513              		.loc 1 216 37 is_stmt 1 view -0
+ 514              		.cfi_startproc
+ 515              		@ args = 0, pretend = 0, frame = 0
+ 516              		@ frame_needed = 0, uses_anonymous_args = 0
+ 517              		@ link register save eliminated.
+ 217:Core/Src/main.c ****     led_off(GPIOB, 14);  // å…³é—­PB14 LED
+ 518              		.loc 1 217 5 view .LVU145
+ 519              	.LVL38:
+ 520              	.LBB55:
+ 521              	.LBI55:
+ 105:Core/Src/main.c **** 
+ 522              		.loc 1 105 20 view .LVU146
+ 523              	.LBB56:
+ 105:Core/Src/main.c **** 
+ 524              		.loc 1 105 63 view .LVU147
+ 105:Core/Src/main.c **** 
+ 525              		.loc 1 105 74 is_stmt 0 view .LVU148
+ 526 0000 064B     		ldr	r3, .L39
+ 527 0002 4FF08042 		mov	r2, #1073741824
+ 528 0006 9A61     		str	r2, [r3, #24]
+ 529              	.LVL39:
+ 105:Core/Src/main.c **** 
+ 530              		.loc 1 105 74 view .LVU149
+ 531              	.LBE56:
+ 532              	.LBE55:
+ 218:Core/Src/main.c ****     PB7_LED_OFF();       // å…³é—­PB7 LEDï¼ˆå®å‡½æ•°ï¼‰
+ 533              		.loc 1 218 5 is_stmt 1 view .LVU150
+ 534 0008 4FF40002 		mov	r2, #8388608
+ 535 000c 9A61     		str	r2, [r3, #24]
+ 219:Core/Src/main.c ****     pb0_led_off();       // å…³é—­PB0 LEDï¼ˆç›´æ¥å†…å­˜è®¿é—®ï¼‰
+ 536              		.loc 1 219 5 view .LVU151
+ 537              	.LBB57:
+ 538              	.LBI57:
+ 115:Core/Src/main.c **** 
+ 539              		.loc 1 115 20 view .LVU152
+ 540              	.LBB58:
+ 115:Core/Src/main.c **** 
+ 541              		.loc 1 115 40 view .LVU153
+ 115:Core/Src/main.c **** 
+ 542              		.loc 1 115 94 is_stmt 0 view .LVU154
+ 543 000e A3F58063 		sub	r3, r3, #1024
+ 544 0012 4FF48032 		mov	r2, #65536
+ 545 0016 C3F81824 		str	r2, [r3, #1048]
+ 546              	.LBE58:
+ 547              	.LBE57:
+ 220:Core/Src/main.c **** }
+ 548              		.loc 1 220 1 view .LVU155
+ 549 001a 7047     		bx	lr
+ 550              	.L40:
+ 551              		.align	2
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 16
+
+
+ 552              	.L39:
+ 553 001c 00040240 		.word	1073873920
+ 554              		.cfi_endproc
+ 555              	.LFE140:
+ 557              		.section	.text.turn_on_single_led,"ax",%progbits
+ 558              		.align	1
+ 559              		.syntax unified
+ 560              		.thumb
+ 561              		.thumb_func
+ 563              	turn_on_single_led:
+ 564              	.LVL40:
+ 565              	.LFB141:
+ 221:Core/Src/main.c **** 
+ 222:Core/Src/main.c **** /*
+ 223:Core/Src/main.c **** ç‚¹äº®å•ä¸ªLEDï¼ˆç†„ç­å…¶ä»–æ‰€æœ‰LEDï¼‰
+ 224:Core/Src/main.c **** æ­¥è¿›å€¼: 0=å…¨ç­, 1=PB14, 2=PB7, 3=PB0
+ 225:Core/Src/main.c ****  */
+ 226:Core/Src/main.c **** static void turn_on_single_led(uint8_t step) {
+ 566              		.loc 1 226 46 is_stmt 1 view -0
+ 567              		.cfi_startproc
+ 568              		@ args = 0, pretend = 0, frame = 0
+ 569              		@ frame_needed = 0, uses_anonymous_args = 0
+ 570              		.loc 1 226 46 is_stmt 0 view .LVU157
+ 571 0000 10B5     		push	{r4, lr}
+ 572              	.LCFI3:
+ 573              		.cfi_def_cfa_offset 8
+ 574              		.cfi_offset 4, -8
+ 575              		.cfi_offset 14, -4
+ 576 0002 0446     		mov	r4, r0
+ 227:Core/Src/main.c ****     // å…ˆå…³é—­æ‰€æœ‰LED
+ 228:Core/Src/main.c ****     all_work_leds_off();
+ 577              		.loc 1 228 5 is_stmt 1 view .LVU158
+ 578 0004 FFF7FEFF 		bl	all_work_leds_off
+ 579              	.LVL41:
+ 229:Core/Src/main.c **** 
+ 230:Core/Src/main.c ****     // æ ¹æ®æ­¥è¿›å€¼ç‚¹äº®å¯¹åº”çš„å•ä¸ªLED
+ 231:Core/Src/main.c ****     switch (step) {
+ 580              		.loc 1 231 5 view .LVU159
+ 581 0008 022C     		cmp	r4, #2
+ 582 000a 08D0     		beq	.L42
+ 583 000c 032C     		cmp	r4, #3
+ 584 000e 0DD0     		beq	.L43
+ 585 0010 012C     		cmp	r4, #1
+ 586 0012 03D1     		bne	.L41
+ 232:Core/Src/main.c ****         case 1: 
+ 233:Core/Src/main.c ****             led_on(GPIOB, 14);  // åªç‚¹äº®PB14
+ 587              		.loc 1 233 13 view .LVU160
+ 588              	.LVL42:
+ 589              	.LBB59:
+ 590              	.LBI59:
+ 100:Core/Src/main.c **** 
+ 591              		.loc 1 100 20 view .LVU161
+ 592              	.LBB60:
+ 100:Core/Src/main.c **** 
+ 593              		.loc 1 100 63 view .LVU162
+ 100:Core/Src/main.c **** 
+ 594              		.loc 1 100 74 is_stmt 0 view .LVU163
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 17
+
+
+ 595 0014 0B4B     		ldr	r3, .L46
+ 596 0016 4FF48042 		mov	r2, #16384
+ 597 001a 9A61     		str	r2, [r3, #24]
+ 598              	.LVL43:
+ 100:Core/Src/main.c **** 
+ 599              		.loc 1 100 74 view .LVU164
+ 600              	.LBE60:
+ 601              	.LBE59:
+ 234:Core/Src/main.c ****             break; 
+ 602              		.loc 1 234 13 is_stmt 1 view .LVU165
+ 603              	.L41:
+ 235:Core/Src/main.c ****         case 2: 
+ 236:Core/Src/main.c ****             led_on(GPIOB, 14);  // åªç‚¹äº®PB14
+ 237:Core/Src/main.c ****             PB7_LED_ON();       // åªç‚¹äº®PB7ï¼ˆå®æ§åˆ¶ï¼‰
+ 238:Core/Src/main.c ****             break; 
+ 239:Core/Src/main.c ****         case 3:
+ 240:Core/Src/main.c ****             led_on(GPIOB, 14);  // åªç‚¹äº®PB14
+ 241:Core/Src/main.c ****             PB7_LED_ON();       // åªç‚¹äº®PB7ï¼ˆå®æ§åˆ¶ï¼‰ 
+ 242:Core/Src/main.c ****             pb0_led_on();       // åªç‚¹äº®PB0ï¼ˆç›´æ¥å†…å­˜æ§åˆ¶ï¼‰
+ 243:Core/Src/main.c ****             break; 
+ 244:Core/Src/main.c ****         case 0: 
+ 245:Core/Src/main.c ****         default: 
+ 246:Core/Src/main.c ****             // å…¨ç­çŠ¶æ€ï¼Œä¸ç‚¹äº®ä»»ä½•LED
+ 247:Core/Src/main.c ****             break;
+ 248:Core/Src/main.c ****     }
+ 249:Core/Src/main.c **** }
+ 604              		.loc 1 249 1 is_stmt 0 view .LVU166
+ 605 001c 10BD     		pop	{r4, pc}
+ 606              	.LVL44:
+ 607              	.L42:
+ 236:Core/Src/main.c ****             PB7_LED_ON();       // åªç‚¹äº®PB7ï¼ˆå®æ§åˆ¶ï¼‰
+ 608              		.loc 1 236 13 is_stmt 1 view .LVU167
+ 609              	.LBB61:
+ 610              	.LBI61:
+ 100:Core/Src/main.c **** 
+ 611              		.loc 1 100 20 view .LVU168
+ 612              	.LBB62:
+ 100:Core/Src/main.c **** 
+ 613              		.loc 1 100 63 view .LVU169
+ 100:Core/Src/main.c **** 
+ 614              		.loc 1 100 74 is_stmt 0 view .LVU170
+ 615 001e 094B     		ldr	r3, .L46
+ 616 0020 4FF48042 		mov	r2, #16384
+ 617 0024 9A61     		str	r2, [r3, #24]
+ 618              	.LVL45:
+ 100:Core/Src/main.c **** 
+ 619              		.loc 1 100 74 view .LVU171
+ 620              	.LBE62:
+ 621              	.LBE61:
+ 237:Core/Src/main.c ****             break; 
+ 622              		.loc 1 237 13 is_stmt 1 view .LVU172
+ 623 0026 8022     		movs	r2, #128
+ 624 0028 9A61     		str	r2, [r3, #24]
+ 238:Core/Src/main.c ****         case 3:
+ 625              		.loc 1 238 13 view .LVU173
+ 626 002a F7E7     		b	.L41
+ 627              	.L43:
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 18
+
+
+ 240:Core/Src/main.c ****             PB7_LED_ON();       // åªç‚¹äº®PB7ï¼ˆå®æ§åˆ¶ï¼‰ 
+ 628              		.loc 1 240 13 view .LVU174
+ 629              	.LVL46:
+ 630              	.LBB63:
+ 631              	.LBI63:
+ 100:Core/Src/main.c **** 
+ 632              		.loc 1 100 20 view .LVU175
+ 633              	.LBB64:
+ 100:Core/Src/main.c **** 
+ 634              		.loc 1 100 63 view .LVU176
+ 100:Core/Src/main.c **** 
+ 635              		.loc 1 100 74 is_stmt 0 view .LVU177
+ 636 002c 054B     		ldr	r3, .L46
+ 637 002e 4FF48042 		mov	r2, #16384
+ 638 0032 9A61     		str	r2, [r3, #24]
+ 639              	.LVL47:
+ 100:Core/Src/main.c **** 
+ 640              		.loc 1 100 74 view .LVU178
+ 641              	.LBE64:
+ 642              	.LBE63:
+ 241:Core/Src/main.c ****             pb0_led_on();       // åªç‚¹äº®PB0ï¼ˆç›´æ¥å†…å­˜æ§åˆ¶ï¼‰
+ 643              		.loc 1 241 13 is_stmt 1 view .LVU179
+ 644 0034 8022     		movs	r2, #128
+ 645 0036 9A61     		str	r2, [r3, #24]
+ 242:Core/Src/main.c ****             break; 
+ 646              		.loc 1 242 13 view .LVU180
+ 647              	.LBB65:
+ 648              	.LBI65:
+ 110:Core/Src/main.c **** 
+ 649              		.loc 1 110 20 view .LVU181
+ 650              	.LBB66:
+ 110:Core/Src/main.c **** 
+ 651              		.loc 1 110 40 view .LVU182
+ 110:Core/Src/main.c **** 
+ 652              		.loc 1 110 94 is_stmt 0 view .LVU183
+ 653 0038 A3F58063 		sub	r3, r3, #1024
+ 654 003c 0122     		movs	r2, #1
+ 655 003e C3F81824 		str	r2, [r3, #1048]
+ 656              	.LBE66:
+ 657              	.LBE65:
+ 243:Core/Src/main.c ****         case 0: 
+ 658              		.loc 1 243 13 is_stmt 1 view .LVU184
+ 659              		.loc 1 249 1 is_stmt 0 view .LVU185
+ 660 0042 EBE7     		b	.L41
+ 661              	.L47:
+ 662              		.align	2
+ 663              	.L46:
+ 664 0044 00040240 		.word	1073873920
+ 665              		.cfi_endproc
+ 666              	.LFE141:
+ 668              		.section	.text.toggle_system_mode,"ax",%progbits
+ 669              		.align	1
+ 670              		.syntax unified
+ 671              		.thumb
+ 672              		.thumb_func
+ 674              	toggle_system_mode:
+ 675              	.LFB142:
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 19
+
+
+ 250:Core/Src/main.c **** 
+ 251:Core/Src/main.c **** 
+ 252:Core/Src/main.c **** //åˆ‡æ¢ç³»ç»Ÿæ¨¡å¼
+ 253:Core/Src/main.c **** 
+ 254:Core/Src/main.c **** static void toggle_system_mode(void) {
+ 676              		.loc 1 254 38 is_stmt 1 view -0
+ 677              		.cfi_startproc
+ 678              		@ args = 0, pretend = 0, frame = 0
+ 679              		@ frame_needed = 0, uses_anonymous_args = 0
+ 680 0000 10B5     		push	{r4, lr}
+ 681              	.LCFI4:
+ 682              		.cfi_def_cfa_offset 8
+ 683              		.cfi_offset 4, -8
+ 684              		.cfi_offset 14, -4
+ 255:Core/Src/main.c ****     if (g_system_mode == 0) {
+ 685              		.loc 1 255 5 view .LVU187
+ 686              		.loc 1 255 23 is_stmt 0 view .LVU188
+ 687 0002 0B4B     		ldr	r3, .L52
+ 688 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 689              		.loc 1 255 8 view .LVU189
+ 690 0006 3BB9     		cbnz	r3, .L49
+ 256:Core/Src/main.c ****         // åˆ‡æ¢åˆ°PD4è¾“å‡ºæ¨¡å¼
+ 257:Core/Src/main.c ****         g_system_mode = 1;
+ 691              		.loc 1 257 9 is_stmt 1 view .LVU190
+ 692              		.loc 1 257 23 is_stmt 0 view .LVU191
+ 693 0008 094B     		ldr	r3, .L52
+ 694 000a 0122     		movs	r2, #1
+ 695 000c 1A70     		strb	r2, [r3]
+ 258:Core/Src/main.c **** 
+ 259:Core/Src/main.c ****         // è®¾ç½®PD4ä¸ºè¾“å‡ºé«˜ç”µå¹³
+ 260:Core/Src/main.c ****         PD4_Set_Output_High();
+ 696              		.loc 1 260 9 is_stmt 1 view .LVU192
+ 697 000e FFF7FEFF 		bl	PD4_Set_Output_High
+ 698              	.LVL48:
+ 261:Core/Src/main.c **** 
+ 262:Core/Src/main.c ****         // å…³é—­æ‰€æœ‰å·¥ä½œLED
+ 263:Core/Src/main.c ****         all_work_leds_off();
+ 699              		.loc 1 263 9 view .LVU193
+ 700 0012 FFF7FEFF 		bl	all_work_leds_off
+ 701              	.LVL49:
+ 702              	.L48:
+ 264:Core/Src/main.c **** 
+ 265:Core/Src/main.c ****     } else {
+ 266:Core/Src/main.c ****         // åˆ‡æ¢å›æ­£å¸¸æ¨¡å¼
+ 267:Core/Src/main.c ****         g_system_mode = 0;
+ 268:Core/Src/main.c **** 
+ 269:Core/Src/main.c ****         // è®¾ç½®PD4ä¸ºè¾“å…¥ä¸Šæ‹‰ï¼ˆæ¢å¤æ­£å¸¸æŒ‰é”®åŠŸèƒ½ï¼Œé¿å…æµ®ç©ºï¼‰
+ 270:Core/Src/main.c ****         PD4_Set_Input_PullUp();
+ 271:Core/Src/main.c **** 
+ 272:Core/Src/main.c ****         // é‡ç½®LEDçŠ¶æ€ä¸ºå…¨ç­
+ 273:Core/Src/main.c ****         g_led_step = 0;
+ 274:Core/Src/main.c ****         turn_on_single_led(g_led_step);  // æ‰€æœ‰LEDç†„ç­
+ 275:Core/Src/main.c ****     }
+ 276:Core/Src/main.c **** }
+ 703              		.loc 1 276 1 is_stmt 0 view .LVU194
+ 704 0016 10BD     		pop	{r4, pc}
+ 705              	.L49:
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 20
+
+
+ 267:Core/Src/main.c **** 
+ 706              		.loc 1 267 9 is_stmt 1 view .LVU195
+ 267:Core/Src/main.c **** 
+ 707              		.loc 1 267 23 is_stmt 0 view .LVU196
+ 708 0018 0024     		movs	r4, #0
+ 709 001a 054B     		ldr	r3, .L52
+ 710 001c 1C70     		strb	r4, [r3]
+ 270:Core/Src/main.c **** 
+ 711              		.loc 1 270 9 is_stmt 1 view .LVU197
+ 712 001e FFF7FEFF 		bl	PD4_Set_Input_PullUp
+ 713              	.LVL50:
+ 273:Core/Src/main.c ****         turn_on_single_led(g_led_step);  // æ‰€æœ‰LEDç†„ç­
+ 714              		.loc 1 273 9 view .LVU198
+ 273:Core/Src/main.c ****         turn_on_single_led(g_led_step);  // æ‰€æœ‰LEDç†„ç­
+ 715              		.loc 1 273 20 is_stmt 0 view .LVU199
+ 716 0022 044B     		ldr	r3, .L52+4
+ 717 0024 1C70     		strb	r4, [r3]
+ 274:Core/Src/main.c ****     }
+ 718              		.loc 1 274 9 is_stmt 1 view .LVU200
+ 719 0026 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 720 0028 FFF7FEFF 		bl	turn_on_single_led
+ 721              	.LVL51:
+ 722              		.loc 1 276 1 is_stmt 0 view .LVU201
+ 723 002c F3E7     		b	.L48
+ 724              	.L53:
+ 725 002e 00BF     		.align	2
+ 726              	.L52:
+ 727 0030 00000000 		.word	g_system_mode
+ 728 0034 00000000 		.word	g_led_step
+ 729              		.cfi_endproc
+ 730              	.LFE142:
+ 732              		.section	.text.main,"ax",%progbits
+ 733              		.align	1
+ 734              		.global	main
+ 735              		.syntax unified
+ 736              		.thumb
+ 737              		.thumb_func
+ 739              	main:
+ 740              	.LFB143:
+ 277:Core/Src/main.c **** 
+ 278:Core/Src/main.c **** //ä¸»å‡½æ•°
+ 279:Core/Src/main.c **** int main(void) {
+ 741              		.loc 1 279 16 is_stmt 1 view -0
+ 742              		.cfi_startproc
+ 743              		@ Volatile: function does not return.
+ 744              		@ args = 0, pretend = 0, frame = 0
+ 745              		@ frame_needed = 0, uses_anonymous_args = 0
+ 746 0000 08B5     		push	{r3, lr}
+ 747              	.LCFI5:
+ 748              		.cfi_def_cfa_offset 8
+ 749              		.cfi_offset 3, -8
+ 750              		.cfi_offset 14, -4
+ 280:Core/Src/main.c ****     // åˆå§‹åŒ–GPIOå’Œç›¸å…³ç¡¬ä»¶
+ 281:Core/Src/main.c ****     GPIO_Init_Memory();
+ 751              		.loc 1 281 5 view .LVU203
+ 752 0002 FFF7FEFF 		bl	GPIO_Init_Memory
+ 753              	.LVL52:
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 21
+
+
+ 282:Core/Src/main.c **** 
+ 283:Core/Src/main.c ****     // åˆå§‹çŠ¶æ€è®¾ç½®
+ 284:Core/Src/main.c ****     all_work_leds_off();    // æ‰€æœ‰å·¥ä½œLEDç†„ç­
+ 754              		.loc 1 284 5 view .LVU204
+ 755 0006 FFF7FEFF 		bl	all_work_leds_off
+ 756              	.LVL53:
+ 285:Core/Src/main.c ****     g_led_step = 0;         // åˆå§‹æ­¥è¿›å€¼ï¼šå…¨ç­
+ 757              		.loc 1 285 5 view .LVU205
+ 758              		.loc 1 285 16 is_stmt 0 view .LVU206
+ 759 000a 0023     		movs	r3, #0
+ 760 000c 114A     		ldr	r2, .L61
+ 761 000e 1370     		strb	r3, [r2]
+ 286:Core/Src/main.c ****     g_system_mode = 0;      // åˆå§‹ä¸ºæ­£å¸¸æ¨¡å¼
+ 762              		.loc 1 286 5 is_stmt 1 view .LVU207
+ 763              		.loc 1 286 19 is_stmt 0 view .LVU208
+ 764 0010 114A     		ldr	r2, .L61+4
+ 765 0012 1370     		strb	r3, [r2]
+ 287:Core/Src/main.c ****     g_pd4_mode_state = 0;   // åˆå§‹PD4æ¨¡å¼ï¼šè¾“å…¥ä¸Šæ‹‰
+ 766              		.loc 1 287 5 is_stmt 1 view .LVU209
+ 767              		.loc 1 287 22 is_stmt 0 view .LVU210
+ 768 0014 114A     		ldr	r2, .L61+8
+ 769 0016 1370     		strb	r3, [r2]
+ 770 0018 0EE0     		b	.L57
+ 771              	.L59:
+ 288:Core/Src/main.c **** 
+ 289:Core/Src/main.c ****     // ä¸»å¾ªç¯
+ 290:Core/Src/main.c ****     while (1) {
+ 291:Core/Src/main.c ****         // æ¸…é™¤æŒ‰ä¸‹æ ‡å¿—ä½
+ 292:Core/Src/main.c ****         g_pd4_pressed_flag = 0;
+ 293:Core/Src/main.c ****         g_pg3_pressed_flag = 0;
+ 294:Core/Src/main.c **** 
+ 295:Core/Src/main.c ****         // æ£€æµ‹PG3æŒ‰é’®ï¼šç³»ç»Ÿæ¨¡å¼åˆ‡æ¢
+ 296:Core/Src/main.c ****         if (check_pg3_button()) {
+ 297:Core/Src/main.c ****             toggle_system_mode();  // åˆ‡æ¢ç³»ç»Ÿæ¨¡å¼
+ 772              		.loc 1 297 13 is_stmt 1 view .LVU211
+ 773 001a FFF7FEFF 		bl	toggle_system_mode
+ 774              	.LVL54:
+ 775 001e 14E0     		b	.L55
+ 776              	.L60:
+ 298:Core/Src/main.c ****         }
+ 299:Core/Src/main.c **** 
+ 300:Core/Src/main.c ****         // æ£€æµ‹PD4æŒ‰é’®ï¼šLEDé¡ºåºç‚¹äº®æ§åˆ¶ï¼ˆä»…åœ¨æ­£å¸¸æ¨¡å¼ä¸‹å·¥ä½œï¼‰
+ 301:Core/Src/main.c ****         if (check_pd4_button()) {
+ 302:Core/Src/main.c ****             // æ­¥è¿›å€¼å¾ªç¯ï¼š0â†’1â†’2â†’3â†’0
+ 303:Core/Src/main.c ****             g_led_step = (uint8_t)((g_led_step + 1U) % 4U);
+ 777              		.loc 1 303 13 view .LVU212
+ 778              		.loc 1 303 26 is_stmt 0 view .LVU213
+ 779 0020 0C4A     		ldr	r2, .L61
+ 780 0022 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 781 0024 0133     		adds	r3, r3, #1
+ 782 0026 03F00303 		and	r3, r3, #3
+ 783              		.loc 1 303 24 view .LVU214
+ 784 002a 1370     		strb	r3, [r2]
+ 304:Core/Src/main.c **** 
+ 305:Core/Src/main.c ****             // ç‚¹äº®å¯¹åº”çš„å•ä¸ªLED
+ 306:Core/Src/main.c ****             turn_on_single_led(g_led_step);
+ 785              		.loc 1 306 13 is_stmt 1 view .LVU215
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 22
+
+
+ 786 002c 1078     		ldrb	r0, [r2]	@ zero_extendqisi2
+ 787 002e FFF7FEFF 		bl	turn_on_single_led
+ 788              	.LVL55:
+ 789              	.L56:
+ 307:Core/Src/main.c ****         }
+ 308:Core/Src/main.c **** 
+ 309:Core/Src/main.c ****         // çŸ­å»¶æ—¶ï¼Œé™ä½CPUå ç”¨ç‡///
+ 310:Core/Src/main.c ****         delay_ms(10);
+ 790              		.loc 1 310 9 view .LVU216
+ 791 0032 0A20     		movs	r0, #10
+ 792 0034 FFF7FEFF 		bl	delay_ms
+ 793              	.LVL56:
+ 290:Core/Src/main.c ****         // æ¸…é™¤æŒ‰ä¸‹æ ‡å¿—ä½
+ 794              		.loc 1 290 11 view .LVU217
+ 795              	.L57:
+ 290:Core/Src/main.c ****         // æ¸…é™¤æŒ‰ä¸‹æ ‡å¿—ä½
+ 796              		.loc 1 290 5 view .LVU218
+ 292:Core/Src/main.c ****         g_pg3_pressed_flag = 0;
+ 797              		.loc 1 292 9 view .LVU219
+ 292:Core/Src/main.c ****         g_pg3_pressed_flag = 0;
+ 798              		.loc 1 292 28 is_stmt 0 view .LVU220
+ 799 0038 0023     		movs	r3, #0
+ 800 003a 094A     		ldr	r2, .L61+12
+ 801 003c 1370     		strb	r3, [r2]
+ 293:Core/Src/main.c **** 
+ 802              		.loc 1 293 9 is_stmt 1 view .LVU221
+ 293:Core/Src/main.c **** 
+ 803              		.loc 1 293 28 is_stmt 0 view .LVU222
+ 804 003e 094A     		ldr	r2, .L61+16
+ 805 0040 1370     		strb	r3, [r2]
+ 296:Core/Src/main.c ****             toggle_system_mode();  // åˆ‡æ¢ç³»ç»Ÿæ¨¡å¼
+ 806              		.loc 1 296 9 is_stmt 1 view .LVU223
+ 296:Core/Src/main.c ****             toggle_system_mode();  // åˆ‡æ¢ç³»ç»Ÿæ¨¡å¼
+ 807              		.loc 1 296 13 is_stmt 0 view .LVU224
+ 808 0042 FFF7FEFF 		bl	check_pg3_button
+ 809              	.LVL57:
+ 296:Core/Src/main.c ****             toggle_system_mode();  // åˆ‡æ¢ç³»ç»Ÿæ¨¡å¼
+ 810              		.loc 1 296 12 discriminator 1 view .LVU225
+ 811 0046 0028     		cmp	r0, #0
+ 812 0048 E7D1     		bne	.L59
+ 813              	.L55:
+ 301:Core/Src/main.c ****             // æ­¥è¿›å€¼å¾ªç¯ï¼š0â†’1â†’2â†’3â†’0
+ 814              		.loc 1 301 9 is_stmt 1 view .LVU226
+ 301:Core/Src/main.c ****             // æ­¥è¿›å€¼å¾ªç¯ï¼š0â†’1â†’2â†’3â†’0
+ 815              		.loc 1 301 13 is_stmt 0 view .LVU227
+ 816 004a FFF7FEFF 		bl	check_pd4_button
+ 817              	.LVL58:
+ 301:Core/Src/main.c ****             // æ­¥è¿›å€¼å¾ªç¯ï¼š0â†’1â†’2â†’3â†’0
+ 818              		.loc 1 301 12 discriminator 1 view .LVU228
+ 819 004e 0028     		cmp	r0, #0
+ 820 0050 E6D1     		bne	.L60
+ 821 0052 EEE7     		b	.L56
+ 822              	.L62:
+ 823              		.align	2
+ 824              	.L61:
+ 825 0054 00000000 		.word	g_led_step
+ 826 0058 00000000 		.word	g_system_mode
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 23
+
+
+ 827 005c 00000000 		.word	g_pd4_mode_state
+ 828 0060 00000000 		.word	g_pd4_pressed_flag
+ 829 0064 00000000 		.word	g_pg3_pressed_flag
+ 830              		.cfi_endproc
+ 831              	.LFE143:
+ 833              		.global	g_pd4_mode_state
+ 834              		.section	.bss.g_pd4_mode_state,"aw",%nobits
+ 837              	g_pd4_mode_state:
+ 838 0000 00       		.space	1
+ 839              		.global	g_system_mode
+ 840              		.section	.bss.g_system_mode,"aw",%nobits
+ 843              	g_system_mode:
+ 844 0000 00       		.space	1
+ 845              		.global	g_pg3_pressed_flag
+ 846              		.section	.bss.g_pg3_pressed_flag,"aw",%nobits
+ 849              	g_pg3_pressed_flag:
+ 850 0000 00       		.space	1
+ 851              		.global	g_pg3_button_state
+ 852              		.section	.bss.g_pg3_button_state,"aw",%nobits
+ 855              	g_pg3_button_state:
+ 856 0000 00       		.space	1
+ 857              		.global	g_led_step
+ 858              		.section	.bss.g_led_step,"aw",%nobits
+ 861              	g_led_step:
+ 862 0000 00       		.space	1
+ 863              		.global	g_button_debug_counter
+ 864              		.section	.bss.g_button_debug_counter,"aw",%nobits
+ 865              		.align	2
+ 868              	g_button_debug_counter:
+ 869 0000 00000000 		.space	4
+ 870              		.global	g_pd4_pressed_flag
+ 871              		.section	.bss.g_pd4_pressed_flag,"aw",%nobits
+ 874              	g_pd4_pressed_flag:
+ 875 0000 00       		.space	1
+ 876              		.global	g_pd4_raw_value
+ 877              		.section	.bss.g_pd4_raw_value,"aw",%nobits
+ 878              		.align	2
+ 881              	g_pd4_raw_value:
+ 882 0000 00000000 		.space	4
+ 883              		.global	g_pd4_button_state
+ 884              		.section	.bss.g_pd4_button_state,"aw",%nobits
+ 887              	g_pd4_button_state:
+ 888 0000 00       		.space	1
+ 889              		.text
+ 890              	.Letext0:
+ 891              		.file 2 "E:/make/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/machine/_default_types.h
+ 892              		.file 3 "E:/make/xpack-arm-none-eabi-gcc-13.2.1-1.1/arm-none-eabi/include/sys/_stdint.h"
+ 893              		.file 4 "CMSIS/Devices/STM32F4xx/Inc/STM32F429xx/stm32f429xx.h"
+ 894              		.file 5 "Core/Inc/init.h"
+ARM GAS  C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s 			page 24
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:21     .text.delay:00000000 $t
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:27     .text.delay:00000000 delay
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:60     .text.update_leds:00000000 $t
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:66     .text.update_leds:00000000 update_leds
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:162    .text.update_leds:00000058 $d
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:371    .data.led_states:00000000 led_states
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:364    .bss.toggle_state:00000000 toggle_state
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:171    .text.main:00000000 $t
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:177    .text.main:00000000 main
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:336    .text.main:000000ac $d
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:379    .bss.current_led:00000000 current_led
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:385    .data.led_count:00000000 led_count
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:358    .bss.button1_flag:00000000 button1_flag
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:352    .bss.button2_flag:00000000 button2_flag
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:353    .bss.button2_flag:00000000 $d
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:359    .bss.button1_flag:00000000 $d
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:365    .bss.toggle_state:00000000 $d
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:368    .data.led_states:00000000 $d
-C:\Users\Áõ±òçù\AppData\Local\Temp\ccp3eqph.s:380    .bss.current_led:00000000 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:21     .text.delay_ms:00000000 $t
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:26     .text.delay_ms:00000000 delay_ms
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:68     .text.update_pd4_button_status:00000000 $t
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:73     .text.update_pd4_button_status:00000000 update_pd4_button_status
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:118    .text.update_pd4_button_status:00000024 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:881    .bss.g_pd4_raw_value:00000000 g_pd4_raw_value
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:887    .bss.g_pd4_button_state:00000000 g_pd4_button_state
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:874    .bss.g_pd4_pressed_flag:00000000 g_pd4_pressed_flag
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:868    .bss.g_button_debug_counter:00000000 g_button_debug_counter
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:126    .text.update_pg3_button_status:00000000 $t
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:131    .text.update_pg3_button_status:00000000 update_pg3_button_status
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:172    .text.update_pg3_button_status:00000020 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:855    .bss.g_pg3_button_state:00000000 g_pg3_button_state
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:849    .bss.g_pg3_pressed_flag:00000000 g_pg3_pressed_flag
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:179    .text.check_pd4_button:00000000 $t
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:184    .text.check_pd4_button:00000000 check_pd4_button
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:346    .text.check_pd4_button:00000078 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:843    .bss.g_system_mode:00000000 g_system_mode
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:352    .text.check_pg3_button:00000000 $t
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:357    .text.check_pg3_button:00000000 check_pg3_button
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:501    .text.check_pg3_button:00000068 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:506    .text.all_work_leds_off:00000000 $t
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:511    .text.all_work_leds_off:00000000 all_work_leds_off
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:553    .text.all_work_leds_off:0000001c $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:558    .text.turn_on_single_led:00000000 $t
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:563    .text.turn_on_single_led:00000000 turn_on_single_led
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:664    .text.turn_on_single_led:00000044 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:669    .text.toggle_system_mode:00000000 $t
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:674    .text.toggle_system_mode:00000000 toggle_system_mode
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:727    .text.toggle_system_mode:00000030 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:861    .bss.g_led_step:00000000 g_led_step
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:733    .text.main:00000000 $t
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:739    .text.main:00000000 main
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:825    .text.main:00000054 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:837    .bss.g_pd4_mode_state:00000000 g_pd4_mode_state
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:838    .bss.g_pd4_mode_state:00000000 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:844    .bss.g_system_mode:00000000 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:850    .bss.g_pg3_pressed_flag:00000000 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:856    .bss.g_pg3_button_state:00000000 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:862    .bss.g_led_step:00000000 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:865    .bss.g_button_debug_counter:00000000 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:875    .bss.g_pd4_pressed_flag:00000000 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:878    .bss.g_pd4_raw_value:00000000 $d
+C:\Users\Áõ±òçù\AppData\Local\Temp\ccML28cu.s:888    .bss.g_pd4_button_state:00000000 $d
 
 UNDEFINED SYMBOLS
-GPIO_Ini_Self_Def
-GPIO_Ini_CMSIS
+PD4_Set_Output_High
+PD4_Set_Input_PullUp
+GPIO_Init_Memory
